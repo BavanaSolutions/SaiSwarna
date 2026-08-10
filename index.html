@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
+<title>Sai Swarna Automobiles</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=Noto+Sans+Telugu:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1LaYxfUQwET7eHDRvoxnzmP_-DYudIKji">
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        primary: "#003d9b",
+        "primary-dark": "#002a6e",
+        "primary-container": "#e8effe",
+        secondary: "#5e4db9",
+        surface: "#f7f8fb",
+        "surface-card": "#ffffff",
+        "surface-muted": "#eef1f6",
+        outline: "#d7dae2",
+        "outline-strong": "#b7bccb",
+        "on-surface": "#1a1d29",
+        "on-surface-variant": "#5a5f72",
+        success: "#1c8a4b",
+        "success-container": "#e5f6ec",
+        error: "#c02b2b",
+        "error-container": "#fdecec",
+      },
+      fontFamily: {
+        display: ["Hanken Grotesk", "sans-serif"],
+        body: ["Inter", "sans-serif"],
+      },
+      borderRadius: { xl: "1rem", "2xl": "1.25rem" },
+      spacing: { "container-max": "880px" },
+      boxShadow: {
+        card: "0 1px 2px rgba(16,24,64,0.04), 0 4px 16px rgba(16,24,64,0.06)",
+        pop: "0 8px 30px rgba(16,24,64,0.14)",
+      },
+    },
+  },
+};
+</script>
+<style>
+  * { -webkit-tap-highlight-color: transparent; }
+  body { font-family: 'Inter', sans-serif; }
+  h1,h2,h3,.font-display { font-family: 'Hanken Grotesk', sans-serif; }
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; font-size: 20px; vertical-align: middle; }
+  input, select, textarea {
+    width: 100%; font-size: 16px; padding: 9px 12px; border-radius: 0.75rem;
+    border: 1.5px solid #d7dae2; background: #fff; transition: border-color .15s, box-shadow .15s;
+    color: #1a1d29; box-sizing: border-box;
+  }
+  input:focus, select:focus, textarea:focus {
+    outline: none; border-color: #003d9b; box-shadow: 0 0 0 4px rgba(0,61,155,0.12);
+  }
+  input::placeholder, textarea::placeholder { color: #9aa0b4; }
+  /* Consistent field wrapper: every label+control pair uses this so the
+     gap between a label and its input/select is identical everywhere. */
+  .field { display: flex; flex-direction: column; gap: 4px; }
+  .field-label { font-size: 13px; font-weight: 600; color: #3d4155; line-height: 1.25; display: flex; align-items: baseline; flex-wrap: wrap; column-gap: 6px; margin: 0; }
+  label.field-label { display: flex; }
+  .te { font-family: 'Noto Sans Telugu', sans-serif; font-weight: 500; color: #6b7086; flex-basis: 100%; display: block; font-size: 12px; margin-top: 0; }
+  .te-inline { font-family: 'Noto Sans Telugu', sans-serif; font-weight: 500; color: #6b7086; font-size: 11.5px; }
+  h2 .te, h1 .te { color: rgba(255,255,255,0.0); }
+  h2 .te-sub { font-family: 'Noto Sans Telugu', sans-serif; font-weight: 500; font-size: 12.5px; color: #5a5f72; display:block; margin-top:1px; }
+  .chip .te-inline { font-size: 10.5px; opacity: .85; }
+  .req::after { content: " *"; color: #c02b2b; }
+  .section-card { background: #fff; border-radius: 1.25rem; border: 1px solid #e7e9f0; box-shadow: 0 1px 2px rgba(16,24,64,0.04), 0 4px 16px rgba(16,24,64,0.05); scroll-margin-top: 96px; }
+  .chip { white-space: nowrap; font-size: 13px; font-weight: 600; padding: 7px 14px; border-radius: 999px; border: 1.5px solid #d7dae2; color: #5a5f72; transition: all .15s; }
+  .chip.active { background: #003d9b; border-color: #003d9b; color: #fff; }
+  .chip.done { border-color: #1c8a4b; color: #1c8a4b; }
+  .icon-badge { width: 38px; height: 38px; border-radius: 0.75rem; background: #e8effe; color: #003d9b; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  table input, table select { padding: 8px 10px; font-size: 14px; }
+  .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .row-btn { display: inline-flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 600; color: #003d9b; padding: 6px 10px; border-radius: 0.6rem; border: 1.5px dashed #b7c8ee; }
+  .row-btn:hover { background: #e8effe; }
+  .icon-btn-remove { color: #c02b2b; }
+  .toast { position: fixed; left: 50%; bottom: 92px; transform: translateX(-50%) translateY(20px); opacity:0; pointer-events:none; transition: all .25s; z-index:60; max-width: 92vw; }
+  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  #camVideo, #camCanvas { border-radius: 1rem; }
+  .fade-slide { animation: fadeSlide .35s ease; }
+  @keyframes fadeSlide { from { opacity:0; transform: translateY(6px);} to {opacity:1; transform:translateY(0);} }
+  ::-webkit-scrollbar { height: 6px; width: 6px; }
+  ::-webkit-scrollbar-thumb { background: #cfd4e2; border-radius: 999px; }
+  /* Copy deterrents — see script at bottom of page for the matching JS */
+  body { -webkit-user-select: none; -moz-user-select: none; user-select: none; }
+  input, textarea, select { -webkit-user-select: text; -moz-user-select: text; user-select: text; }
+  img { -webkit-user-drag: none; user-drag: none; pointer-events: none; }
+  #devtoolsGuard { position: fixed; inset: 0; background: #f7f8fb; z-index: 999; display: none; align-items: center; justify-content: center; text-align: center; padding: 24px; }
+  #devtoolsGuard.show { display: flex; }
+  .te.badge {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  background: #f1f5f9;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+  /* ---------------------------------------------------------------------
+     MOBILE: full-screen, edge-to-edge layout.
+     On phones the outer page gutter and card corners/borders are removed
+     so each section fills the full device width like a native app screen,
+     while inner padding stays generous so content still feels comfortable
+     (not cramped against the glass).
+     --------------------------------------------------------------------- */
+  @media (max-width: 640px) {
+    header .max-w-container-max,
+    main.max-w-container-max,
+    #bottomBar .max-w-container-max {
+      padding-left: 14px;
+      padding-right: 14px;
+    }
+    main.max-w-container-max { padding-top: 12px; padding-bottom: 12px; }
+    #appForm { row-gap: 14px; }
+    .section-card {
+      border-radius: 0;
+      border-left-width: 0;
+      border-right-width: 0;
+      box-shadow: none;
+      margin-left: -14px;
+      margin-right: -14px;
+      padding-left: 16px !important;
+      padding-right: 16px !important;
+    }
+    .section-card + .section-card { border-top-width: 0; }
+    .chip { font-size: 12.5px; padding: 6px 12px; }
+  }
+</style>
+</head>
+<body class="bg-surface text-on-surface antialiased min-h-screen pb-28">
+<header class="bg-white/90 backdrop-blur border-b border-outline sticky top-0 z-40">
+  <div class="max-w-container-max mx-auto px-4 py-3 flex items-center justify-between gap-3">
+    <div class="flex items-center gap-3 min-w-0">
+      <div class="w-11 h-11 rounded-xl overflow-hidden shrink-0 border border-outline bg-surface-muted">
+        <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/d/1LaYxfUQwET7eHDRvoxnzmP_-DYudIKji" alt="Logo"/>
+      </div>
+      <div class="min-w-0">
+        <h1 class="font-display font-bold text-[15px] leading-tight text-primary truncate">SAI SWARNA AUTOMOBILES PVT. LTD.</h1>
+        <p class="text-[11px] text-on-surface-variant truncate">Employment Application Form <span class="te-inline">· ఉద్యోగ దరఖాస్తు ఫారం</span></p>
+      </div>
+    </div>
+    <button id="draftBtn" type="button" class="shrink-0 flex items-center gap-1 text-[12px] font-semibold text-primary bg-primary-container px-3 py-2 rounded-full">
+      <span class="material-symbols-outlined !text-[16px]">save</span><span class="hidden sm:inline">Save draft <span class="te-inline">· సేవ్</span></span>
+    </button>
+  </div>
+  <div class="max-w-container-max mx-auto px-4 pb-3 overflow-x-auto flex gap-2" id="navChips">
+    <a href="#sec-personal" class="chip active" data-sec="sec-personal">1 · Personal <span class="te-inline">వ్యక్తిగతం</span></a>
+    <a href="#sec-family" class="chip" data-sec="sec-family">2 · Family <span class="te-inline">కుటుంబం</span></a>
+    <a href="#sec-education" class="chip" data-sec="sec-education">3 · Education <span class="te-inline">విద్య</span></a>
+    <a href="#sec-experience" class="chip" data-sec="sec-experience">4 · Experience <span class="te-inline">అనుభవం</span></a>
+    <a href="#sec-salary" class="chip" data-sec="sec-salary">5 · Salary <span class="te-inline">జీతం</span></a>
+    <a href="#sec-writeups" class="chip" data-sec="sec-writeups">6 · About You <span class="te-inline">మీ గురించి</span></a>
+    <a href="#sec-references" class="chip" data-sec="sec-references">7 · References <span class="te-inline">సూచనలు</span></a>
+    <a href="#sec-photo" class="chip" data-sec="sec-photo">8 · Photo &amp; ID <span class="te-inline">ఫోటో</span></a>
+    <a href="#sec-declare" class="chip" data-sec="sec-declare">9 · Submit <span class="te-inline">సమర్పణ</span></a>
+  </div>
+  <div class="h-1 w-full bg-surface-muted">
+    <div id="progressBar" class="h-full bg-gradient-to-r from-primary to-secondary transition-all duration-300" style="width:11%"></div>
+  </div>
+</header>
+<main class="max-w-container-max mx-auto px-4 py-5">
+<form id="appForm" class="space-y-5" autocomplete="on">
+  <section class="section-card p-5" id="sec-personal">
+    <div class="flex items-center gap-3 mb-2">
+      <div class="icon-badge"><span class="material-symbols-outlined">account_tree</span></div>
+      <div>
+        <h2 class="font-display font-bold text-lg">Application for the Post <span class="te-sub">దరఖాస్తు చేస్తున్న ఉద్యోగ పదవి</span></h2>
+        <p class="text-xs text-on-surface-variant">Select properly</p>
+      </div>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-x-4 gap-y-3">
+      <div class="field"><label class="field-label" for="Division"><span class="req">Division</span><span class="te">శాఖ</span></label>
+        <select id="Division" name="Division" required><option value="">Select Division</option>
+          <option>H-PROMIS</option><option>SALES</option><option>SERVICE</option>
+        </select>
+      </div>
+      <div class="field"><label class="field-label" for="Department"><span class="req">Department</span><span class="te">విభాగం</span></label>
+        <select id="Department" name="Department" required><option value="">Select Department</option>
+          <option>SALES</option><option>EDP</option><option>CUSTOMERCARE</option><option>PDI</option><option>ACCESSORIES</option><option>INSURANCE</option><option>FINANCE</option><option>ACCOUNTS</option><option>HUMEN RESOURCE</option><option>AUDIT</option><option>SERVICE</option><option>BODYSHOP</option><option>HOUSE KEEPING</option>
+        </select>
+      </div>
+      <div class="field"><label class="field-label" for="postApplied"><span class="req">Designation Applied For</span><span class="te">దరఖాస్తు చేస్తున్న ఉద్యోగ హోదా</span></label>
+        <select id="postApplied" name="postApplied" required><option value="">Select Post</option>
+          <option>GENERAL MANAGER</option><option>Sr. GENERAL MANAGER</option><option>CHIEF GENERAL MANAGER</option><option>Asst. GENERAL MANAGER</option><option>DEPUTY GENERAL MANAGER</option><option>SR.MANAGER</option><option>Asst. MANAGER</option><option>DEPUTY MANAGE</option><option>MANAGER</option><option>Sr.EXECUTIVE</option><option>EXECUTIVE</option><option>Jr.EXECUTIVE</option><option>TEAM LEADER</option><option>SALES CONSULTANT</option><option>IN HOUSE TRAINER</option><option>CUSTOMER CARE MANAGER</option><option>CUSTOMER CARE EXECUTIVE</option><option>TELE CALLER</option><option>PDI INCARGE</option><option>DELEVERY COORDINATOR</option><option>DRIVER</option><option>SHOWROOM HOSTER</option><option>TECHNECIAN</option><option>VALUATOR</option><option>CASHIER</option><option>ACCOUNTANT</option><option>SERVICE MANAGER</option><option>Asst.SERVICE MANAGER</option><option>WARENTY MANAGER</option><option>FLOORE INCHARGE</option><option>SERVICE ADVISOR</option><option>CUSTOMERCARE MANAGER</option><option>BODYSHOP MANAGER</option><option>BODYSHOP ADVISOR</option><option>MASTER TECHNECIAN</option><option>Asst.TECHNECIAN</option><option>DENTAR</option><option>PAINTER</option><option>WHEEL ELIGNMENT TECHENCIAN</option><option>ELECTRECIAN</option><option>A C TEHNECIAN</option><option>SUPERVISOR</option><option>HELPER</option><option>WASHER</option><option>TECHNICAL ADVISOR</option><option>LOBBY</option>
+        </select>
+      </div>
+    </div>
+  </section>
+  <section class="section-card p-5" id="sec-personal-details">
+    <div class="flex items-center gap-3 mb-2">
+      <div class="icon-badge"><span class="material-symbols-outlined">badge</span></div>
+      <div>
+        <h2 class="font-display font-bold text-lg">Personal Details <span class="te-sub">వ్యక్తిగత వివరాలు</span></h2>
+        <p class="text-xs text-on-surface-variant">Tell us who you are</p>
+      </div>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-3">
+      <div class="field"><label class="field-label" for="fullName"><span class="req">Full Name</span><span class="te">పూర్తి పేరు</span></label><input id="fullName" name="fullName" required placeholder="As per Aadhar / ID proof"/></div>
+	  <div class="field"><label class="field-label" for="aadharCardNumber"><span class="req">Aadhar Card Number</span><span class="te">ఆధార్ కార్డు నంబర్</span></label><input id="aadharCardNumber" name="aadharCardNumber" type="text" inputmode="numeric" maxlength="12" pattern="[0-9]{12}" title="Enter exactly 12 digits" required placeholder="12-digit Aadhar number"/></div>
+ 	  <div class="field"><label class="field-label" for="dob"><span class="req">Date of Birth</span><span class="te">జననo తేదీ</span></label><input id="dob" name="dob" type="date" required/></div>
+      <div class="field"><label class="field-label" for="age">Age (auto)<span class="te">వయస్సు (ఆటో)</span></label><input id="age" name="age" type="text" readonly class="bg-surface-muted"/></div>
+      <div class="field"><label class="field-label" for="mobile"><span class="req">Mobile Number</span><span class="te">మొబైల్ నంబర్</span></label><input id="mobile" name="mobile" type="tel" inputmode="numeric" maxlength="10" pattern="[0-9]{10}" title="Enter exactly 10 digits" required placeholder="10-digit mobile"/></div>
+      <div class="field"><label class="field-label" for="email">Email<span class="te">ఇమెయిల్</span></label><input id="email" name="email" type="email" placeholder="you@example.com"/></div>
+      <div class="field"><label class="field-label" for="caste">Caste / Category<span class="te">కులం / వర్గం</span></label><select id="caste" name="caste"><option value="">Select category</option><option>OC</option><option>BC</option><option>SC</option><option>ST</option><option>Other</option></select></div>
+      <div class="field"><label class="field-label" for="subCaste">Sub-Caste<span class="te">ఉప కులం</span></label><input id="subCaste" name="subCaste" placeholder="If applicable"/></div>
+      <div class="field"><label class="field-label" for="bloodGroup">Blood Group<span class="te">రక్త గ్రూప్</span></label><select id="bloodGroup" name="bloodGroup"><option value="">Select group</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>O+</option><option>O-</option><option>AB+</option><option>AB-</option></select></div>
+      <div class="field"><label class="field-label" for="maritalStatus">Marital Status<span class="te">వైవాహిక స్థితి</span></label><select id="maritalStatus" name="maritalStatus"><option value="">Select status</option><option>Single</option><option>Married</option><option>Divorced</option><option>Widowed</option></select></div>
+      <div class="field"><label class="field-label" for="fatherHusbandName">Father's / Husband's Name<span class="te">తండ్రి / భర్త పేరు</span></label><input id="fatherHusbandName" name="fatherHusbandName" placeholder="Full name"/></div>
+      <div class="field"><label class="field-label" for="fatherHusbandOcc">Father's / Husband's Occupation<span class="te">తండ్రి / భర్త వృత్తి</span></label><input id="fatherHusbandOcc" name="fatherHusbandOcc"/></div>
+	  <div class="field"><label class="field-label" for="panNumber">PAN Number<span class="te">పాన్ నంబర్</span></label><input id="panNumber" name="panNumber" maxlength="10" placeholder="ABCDE1234F" class="uppercase" style="text-transform:uppercase"/></div>
+	 <div class="sm:col-span-2 field"><label class="field-label" for="presentAddress"><span class="req">Present Address (Communication)</span><span class="te">ప్రస్తుత చిరునామా (సంప్రదింపు)</span></label><textarea id="presentAddress" name="presentAddress" rows="2" required placeholder="House no, street, village/town, mandal, district, pincode"></textarea></div>
+<div class="sm:col-span-2 flex items-center gap-2">
+        <input type="checkbox" id="sameAsPresent" class="w-4 h-4 rounded border-outline-strong text-primary"/>
+        <label for="sameAsPresent" class="text-sm text-on-surface-variant">Permanent address is same as present address <span class="te-inline">(శాశ్వత చిరునామా ప్రస్తుత చిరునామా వలెనే)</span></label>
+      </div>
+      <div class="sm:col-span-2 field"><label class="field-label" for="permanentAddress">Permanent Address<span class="te">శాశ్వత చిరునామా</span></label><textarea id="permanentAddress" name="permanentAddress" rows="2"></textarea></div>
+
+			<div class="sm:col-span-2 pt-2 mt-1 border-t border-outline">
+        <p class="text-sm font-semibold text-on-surface">Bank Details <span class="te-inline">బ్యాంక్ వివరాలు</span></p>
+        <p class="text-xs text-on-surface-variant">Bank details are used for salary credit if selected</p>
+      </div>
+	  <div class="field"><label class="field-label" for="bankName">Name of the Bank<span class="te">బ్యాంక్ పేరు</span></label><input id="bankName" name="bankName" placeholder="e.g. State Bank of India"/></div>
+      <div class="field"><label class="field-label" for="bankAccountNumber">Bank A/c Number<span class="te">బ్యాంక్ ఖాతా నంబర్</span></label><input id="bankAccountNumber" name="bankAccountNumber" inputmode="numeric" placeholder="Account number"/></div>
+      <div class="field"><label class="field-label" for="ifscCode">IFSC Code<span class="te">IFSC కోడ్</span></label><input id="ifscCode" name="ifscCode" maxlength="11" placeholder="e.g. SBIN0001234" style="text-transform:uppercase"/></div>
+      <div class="field"><label class="field-label" for="branchName">Name of the Branch<span class="te">బ్రాంచ్ పేరు</span></label><input id="branchName" name="branchName" placeholder="Branch name"/></div>     
+
+      
+      
+    </div>
+  </section>
+  <section class="section-card p-5" id="sec-family">
+    <div class="flex items-center justify-between mb-4">
+      <div class="flex items-center gap-3">
+        <div class="icon-badge"><span class="material-symbols-outlined">family_restroom</span></div>
+        <div><h2 class="font-display font-bold text-lg">Family Details <span class="te-sub">కుటుంబ వివరాలు</span></h2><p class="text-xs text-on-surface-variant">Members currently dependent on / living with you</p></div>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table class="w-full text-left border-collapse min-w-[1080px]" id="familyTable">
+        <thead><tr class="text-xs text-on-surface-variant border-b border-outline">
+          <th class="py-2 pr-2 font-semibold min-w-[220px]">Name of the Relative<span class="te-inline block">పేరు</span></th>
+          <th class="py-2 pr-2 font-semibold">Gender<span class="te-inline block">లింగం</span></th>
+          <th class="py-2 pr-2 font-semibold">Relationship<span class="te-inline block">సంబంధం</span></th>
+          <th class="py-2 pr-2 font-semibold">Date of Birth<span class="te-inline block">జననo తేదీ</span></th>
+          <th class="py-2 pr-2 font-semibold">Age<span class="te-inline block">వయస్సు</span></th>
+          <th class="py-2 pr-2 font-semibold">Contact Number<span class="te-inline block">సంప్రదింపు నంబర్</span></th>
+          <th class="py-2 pr-2 font-semibold">Aadhar Number<span class="te-inline block">ఆధార్ నంబర్</span></th>
+          <th class="py-2 pr-2 font-semibold">Occupation<span class="te-inline block">వృత్తి</span></th>
+          <th class="w-8"></th>
+        </tr></thead>
+        <tbody id="familyBody"></tbody>
+      </table>
+    </div>
+    <button type="button" class="row-btn mt-3" data-add="family"><span class="material-symbols-outlined !text-[16px]">add</span>Add family member <span class="te-inline">సభ్యుడిని జోడించండి</span></button>
+  </section>
+
+  <!-- 3. Education -->
+  <section class="section-card p-5" id="sec-education">
+    <div class="flex items-center gap-3 mb-4">
+      <div class="icon-badge"><span class="material-symbols-outlined">school</span></div>
+      <div><h2 class="font-display font-bold text-lg">Educational Qualifications <span class="te-sub">విద్యార్హతలు</span></h2><p class="text-xs text-on-surface-variant">SSC, Intermediate, Degree, Diploma etc.</p></div>
+    </div>
+    <div class="table-wrap">
+      <table class="w-full text-left border-collapse min-w-[720px]" id="eduTable">
+        <thead><tr class="text-xs text-on-surface-variant border-b border-outline">
+          <th class="py-2 pr-2 font-semibold">Institution / Board<span class="te-inline block">సంస్థ / బోర్డు</span></th><th class="py-2 pr-2 font-semibold">SSC/Inter/Degree/Diploma<span class="te-inline block">విద్యార్హత</span></th><th class="py-2 pr-2 font-semibold">Passing Year<span class="te-inline block">ఉత్తీర్ణత సంవత్సరం</span></th><th class="py-2 pr-2 font-semibold">Group/Branch/Trade<span class="te-inline block">గ్రూప్/బ్రాంచ్</span></th><th class="py-2 pr-2 font-semibold">Class/Grade<span class="te-inline block">తరగతి/గ్రేడ్</span></th><th class="w-8"></th>
+        </tr></thead>
+        <tbody id="eduBody"></tbody>
+      </table>
+    </div>
+    <button type="button" class="row-btn mt-3" data-add="edu"><span class="material-symbols-outlined !text-[16px]">add</span>Add qualification <span class="te-inline">అర్హతను జోడించండి</span></button>
+  </section>
+
+  <!-- 4. Experience -->
+  <section class="section-card p-5" id="sec-experience">
+    <div class="flex items-center gap-3 mb-4">
+      <div class="icon-badge"><span class="material-symbols-outlined">work_history</span></div>
+      <div><h2 class="font-display font-bold text-lg">Employment History <span class="te-sub">ఉద్యోగ చరిత్ర</span></h2><p class="text-xs text-on-surface-variant">Last employer(s), most recent first</p></div>
+    </div>
+    <div class="table-wrap">
+      <table class="w-full text-left border-collapse min-w-[1680px]" id="empTable">
+        <thead><tr class="text-xs text-on-surface-variant border-b border-outline">
+          <th class="py-2 pr-2 font-semibold min-w-[440px]">Company Name &amp; Present Working Address<span class="te-inline block">కంపెనీ పేరు &amp; చిరునామా</span></th><th class="py-2 pr-2 font-semibold min-w-[140px]">Date Joining<span class="te-inline block">చేరిన తేదీ</span></th><th class="py-2 pr-2 font-semibold min-w-[140px]">Date Leaving<span class="te-inline block">వదిలిన తేదీ</span></th><th class="py-2 pr-2 font-semibold min-w-[150px]">Period Worked<span class="te-inline block">పనిచేసిన కాలం</span></th><th class="py-2 pr-2 font-semibold min-w-[190px]">Designation<span class="te-inline block">పదవి</span></th><th class="py-2 pr-2 font-semibold min-w-[190px]">Name of your HOD<span class="te-inline block">మీ HOD పేరు</span></th><th class="py-2 pr-2 font-semibold min-w-[160px]">Contact Number<span class="te-inline block">సంప్రదింపు నంబర్</span></th><th class="py-2 pr-2 font-semibold min-w-[170px]">Emolument at Start<span class="te-inline block">ప్రారంభ వేతనం</span></th><th class="py-2 pr-2 font-semibold min-w-[170px]">Emolument at Leaving<span class="te-inline block">చివరి వేతనం</span></th><th class="py-2 pr-2 font-semibold min-w-[190px]">Reason for Leaving<span class="te-inline block">వదిలేందుకు కారణం</span></th><th class="w-8"></th>
+        </tr></thead>
+        <tbody id="empBody"></tbody>
+      </table>
+    </div>
+    <button type="button" class="row-btn mt-3" data-add="emp"><span class="material-symbols-outlined !text-[16px]">add</span>Add employer <span class="te-inline">యజమానిని జోడించండి</span></button>
+  </section>
+
+  <!-- 5. Salary Details -->
+  <section class="section-card p-5" id="sec-salary">
+    <div class="flex items-center gap-3 mb-4">
+      <div class="icon-badge"><span class="material-symbols-outlined">payments</span></div>
+      <div><h2 class="font-display font-bold text-lg">Details of Last Drawn Salary <span class="te-sub">చివరిగా తీసుకున్న జీతం వివరాలు</span></h2><p class="text-xs text-on-surface-variant">Per month figures — yearly is calculated automatically</p></div>
+    </div>
+    <div class="table-wrap">
+      <table class="w-full text-left border-collapse min-w-[420px]" id="salaryTable">
+        <thead><tr class="text-xs text-on-surface-variant border-b border-outline">
+          <th class="py-2 pr-2 font-semibold">Component<span class="te-inline block">అంశం</span></th><th class="py-2 pr-2 font-semibold w-32">Per Month (₹)<span class="te-inline block">నెలకు</span></th><th class="py-2 pr-2 font-semibold w-32">Per Annum (₹)<span class="te-inline block">సంవత్సరానికి</span></th>
+        </tr></thead>
+        <tbody id="salaryBody"></tbody>
+        <tfoot>
+          <tr class="border-t-2 border-outline-strong font-bold">
+            <td class="py-2 pr-2">Total <span class="te-inline">మొత్తం</span></td>
+            <td class="py-2 pr-2"><input id="salaryTotalMonth" readonly class="bg-surface-muted font-bold"/></td>
+            <td class="py-2 pr-2"><input id="salaryTotalAnnum" readonly class="bg-surface-muted font-bold"/></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-3 mt-4">
+      <div class="field"><label class="field-label" for="pfUan">PF UAN Number (if any)<span class="te">PF UAN నంబర్ (ఉంటే)</span></label><input id="pfUan" name="pfUan"/></div>
+      <div class="field"><label class="field-label" for="esiIp">ESI IP (Insured Person) Number (if any)<span class="te">ESI IP నంబర్ (ఉంటే)</span></label><input id="esiIp" name="esiIp"/></div>
+    </div>
+  </section>
+
+  <!-- 6. Write-ups -->
+  <section class="section-card p-5" id="sec-writeups">
+    <div class="flex items-center gap-3 mb-4">
+      <div class="icon-badge"><span class="material-symbols-outlined">edit_note</span></div>
+      <div><h2 class="font-display font-bold text-lg">About You <span class="te-sub">మీ గురించి</span></h2><p class="text-xs text-on-surface-variant">Answer briefly, in your own words</p></div>
+    </div>
+    <div class="space-y-4">
+      <div class="field"><label class="field-label" for="q1">Briefly describe your previous job responsibilities<span class="te">మీ మునుపటి ఉద్యోగ బాధ్యతలను క్లుప్తంగా వివరించండి</span></label><textarea id="q1" name="q1" rows="3"></textarea></div>
+      <div class="field"><label class="field-label" for="q2">What do you consider your most significant achievement?<span class="te">మీరు సాధించిన అత్యంత ముఖ్యమైన విజయం ఏమిటి?</span></label><textarea id="q2" name="q2" rows="3"></textarea></div>
+      <div class="field"><label class="field-label" for="hobbies">Extra-curricular activities / Hobbies<span class="te">అదనపు కార్యకలాపాలు / అభిరుచులు</span></label><textarea id="hobbies" name="hobbies" rows="2"></textarea></div>
+      <div class="field"><label class="field-label" for="careerPlan">Career plan, goals &amp; ambitions<span class="te">వృత్తి ప్రణాళిక, లక్ష్యాలు &amp; ఆశయాలు</span></label><textarea id="careerPlan" name="careerPlan" rows="3"></textarea></div>
+    </div>
+  </section>
+
+  <!-- 7. References -->
+  <section class="section-card p-5" id="sec-references">
+    <div class="flex items-center gap-3 mb-4">
+      <div class="icon-badge"><span class="material-symbols-outlined">contacts</span></div>
+      <div><h2 class="font-display font-bold text-lg">References <span class="te-sub">సూచనలు (రిఫరెన్సులు)</span></h2><p class="text-xs text-on-surface-variant">Two references, other than relatives, for background verification — <span class="text-error font-semibold">both references are mandatory</span></p></div>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-3">
+      <div class="p-4 rounded-xl bg-surface-muted space-y-3">
+        <p class="text-xs font-bold text-on-surface-variant uppercase tracking-wide">Reference 1</p>
+        <div class="field"><label class="field-label" for="ref1Name"><span class="req">Name</span><span class="te">పేరు</span></label><input id="ref1Name" name="ref1Name" required/></div>
+        <div class="field"><label class="field-label" for="ref1Address"><span class="req">Present Working Company & Address</span><span class="te">ప్రస్తుతం పనిచేస్తున్న సంస్థ & చిరునామా</span></label><textarea id="ref1Address" name="ref1Address" rows="2" required></textarea></div>
+        <div class="field"><label class="field-label" for="ref1Occ"><span class="req">Occupation</span><span class="te">వృత్తి</span></label><input id="ref1Occ" name="ref1Occ" required/></div>
+        <div class="field"><label class="field-label" for="ref1Mobile"><span class="req">Mobile No.</span><span class="te">మొబైల్ నంబర్</span></label><input id="ref1Mobile" name="ref1Mobile" type="tel" inputmode="numeric" maxlength="10" pattern="[0-9]{10}" title="Enter exactly 10 digits" required/></div>
+      </div>
+      <div class="p-4 rounded-xl bg-surface-muted space-y-3">
+        <p class="text-xs font-bold text-on-surface-variant uppercase tracking-wide">Reference 2</p>
+        <div class="field"><label class="field-label" for="ref2Name"><span class="req">Name</span><span class="te">పేరు</span></label><input id="ref2Name" name="ref2Name" required/></div>
+        <div class="field"><label class="field-label" for="ref2Address"><span class="req">Present Working Company & Address</span><span class="te">ప్రస్తుతం పనిచేస్తున్న సంస్థ & చిరునామా</span></label><textarea id="ref2Address" name="ref2Address" rows="2" required></textarea></div>
+        <div class="field"><label class="field-label" for="ref2Occ"><span class="req">Occupation</span><span class="te">వృత్తి</span></label><input id="ref2Occ" name="ref2Occ" required/></div>
+        <div class="field"><label class="field-label" for="ref2Mobile"><span class="req">Mobile No.</span><span class="te">మొబైల్ నంబర్</span></label><input id="ref2Mobile" name="ref2Mobile" type="tel" inputmode="numeric" maxlength="10" pattern="[0-9]{10}" title="Enter exactly 10 digits" required/></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 8. Photo & ID -->
+  <section class="section-card p-5" id="sec-photo">
+    <div class="flex items-center gap-3 mb-4">
+      <div class="icon-badge"><span class="material-symbols-outlined">photo_camera</span></div>
+      <div><h2 class="font-display font-bold text-lg">Photo &amp; Documents <span class="te-sub">ఫోటో &amp; పత్రాలు</span></h2><p class="text-xs text-on-surface-variant"><span class="req">Passport-style photo is mandatory</span> — compressed automatically to under 1 MB before upload</p></div>
+    </div>
+
+    <div class="flex flex-col items-center gap-3">
+      <div id="photoPreviewWrap" class="w-36 h-36 rounded-2xl bg-surface-muted border-2 border-dashed border-outline-strong flex items-center justify-center overflow-hidden">
+        <span class="material-symbols-outlined !text-[40px] text-outline-strong" id="photoPlaceholderIcon">person</span>
+        <img id="photoPreview" class="w-full h-full object-cover hidden" alt="Applicant photo preview"/>
+      </div>
+      <div class="flex gap-2 flex-wrap justify-center">
+        <label class="row-btn cursor-pointer !border-solid">
+          <span class="material-symbols-outlined !text-[16px]">photo_camera</span>Take photo <span class="te-inline">ఫోటో తీయండి</span>
+          <input type="file" accept="image/*" capture="user" id="photoCapture" class="hidden"/>
+        </label>
+        <label class="row-btn cursor-pointer !border-solid">
+          <span class="material-symbols-outlined !text-[16px]">upload</span>Upload from gallery <span class="te-inline">గ్యాలరీ నుండి</span>
+          <input type="file" accept="image/*" id="photoUpload" class="hidden"/>
+        </label>
+        <button type="button" id="photoClear" class="row-btn icon-btn-remove hidden !border-solid">
+          <span class="material-symbols-outlined !text-[16px]">delete</span>Remove <span class="te-inline">తీసివేయండి</span>
+        </button>
+      </div>
+      <p id="photoStatus" class="text-xs text-on-surface-variant text-center"></p>
+    </div>
+
+    <div class="mt-5">
+      <p class="field-label mb-2">Documents you will bring / have ready (tick to confirm) <span class="te-inline block">(మీరు తీసుకువచ్చే / సిద్ధంగా ఉన్న పత్రాలు)</span></p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
+	  <label class="flex items-center gap-2"><input type="checkbox" name="doc_adc" class="w-4 h-4 rounded border-outline-strong text-primary"/>Aadhar Card Number <span class="te-inline">ఆధార్ కార్డు</span></label>
+	  <label class="flex items-center gap-2"><input type="checkbox" name="doc_pan" class="w-4 h-4 rounded border-outline-strong text-primary"/>PAN Card Number <span class="te-inline">పాన్ కార్డు</span></label>
+        
+        <label class="flex items-center gap-2"><input type="checkbox" name="doc_dob" class="w-4 h-4 rounded border-outline-strong text-primary"/>Proof of Date of Birth <span class="te-inline">(పుట్టిన తేదీ రుజువు)</span></label>
+        <label class="flex items-center gap-2"><input type="checkbox" name="doc_residence" class="w-4 h-4 rounded border-outline-strong text-primary"/>Proof of Residence <span class="te-inline">(నివాస రుజువు)</span></label>
+        <label class="flex items-center gap-2"><input type="checkbox" name="doc_edu" class="w-4 h-4 rounded border-outline-strong text-primary"/>Educational Certificates <span class="te-inline">(విద్యా ధృవపత్రాలు)</span></label>
+        <label class="flex items-center gap-2"><input type="checkbox" name="doc_dl" class="w-4 h-4 rounded border-outline-strong text-primary"/>Driving License <span class="te-inline">(డ్రైవింగ్ లైసెన్స్ కాపీ)</span></label>
+        <label class="flex items-center gap-2 sm:col-span-2"><input type="checkbox" name="doc_exp" class="w-4 h-4 rounded border-outline-strong text-primary"/>Experience / Performance Certificates from previous employer(s) <span class="te-inline">(అనుభవ ధృవపత్రాలు)</span></label>
+      </div>
+    </div>
+  </section>
+
+  <!-- 9. Declaration -->
+  <section class="section-card p-5" id="sec-declare">
+    <div class="flex items-center gap-3 mb-4">
+      <div class="icon-badge"><span class="material-symbols-outlined">verified</span></div>
+      <div><h2 class="font-display font-bold text-lg">Declaration &amp; Submit <span class="te-sub">ప్రకటన &amp; సమర్పణ</span></h2></div>
+    </div>
+    <label class="flex items-start gap-3 cursor-pointer mb-4">
+      <input type="checkbox" id="declaration" name="declaration" required class="w-5 h-5 mt-0.5 rounded border-outline-strong text-primary"/>
+      <span class="text-sm text-on-surface-variant">I hereby declare that all the information provided above is true and correct to the best of my knowledge. I understand that any false information may lead to the cancellation of my application.<span class="te block mt-1">నేను పైన అందించిన మొత్తం సమాచారం నా అవగాహన మేరకు నిజం మరియు సరైనదిగా ప్రకటిస్తున్నాను. తప్పుడు సమాచారం ఇస్తే నా దరఖాస్తు రద్దు కావచ్చని అర్థం చేసుకున్నాను.</span></span>
+    </label>
+    <div class="mb-5 field">
+      <label class="field-label"><span class="req">Signature</span><span class="te">సంతకం</span></label>
+      <p class="text-xs text-on-surface-variant mb-2">Draw your signature below, or upload / take a photo of your signature — compressed automatically to under 500 KB. <span class="te-inline block">సంతకం చేయండి లేదా ఫోటో అప్‌లోడ్ చేయండి</span></p>
+      <div id="sigPadWrap" class="rounded-2xl border-2 border-dashed border-outline-strong bg-white overflow-hidden relative">
+        <canvas id="sigCanvas" class="w-full h-40 touch-none cursor-crosshair block"></canvas>
+        <img id="sigPreview" class="w-full h-40 object-contain bg-white hidden" alt="Signature preview"/>
+        <span id="sigPlaceholder" class="absolute inset-0 flex items-center justify-center text-xs text-on-surface-variant pointer-events-none">Sign here with mouse / finger <span class="te-inline">· ఇక్కడ సంతకం చేయండి</span></span>
+      </div>
+      <div class="flex gap-2 flex-wrap justify-center mt-3">
+        <button type="button" id="sigClearPad" class="row-btn !border-solid"><span class="material-symbols-outlined !text-[16px]">ink_eraser</span>Clear <span class="te-inline">తుడిచివేయండి</span></button>
+        <label class="row-btn cursor-pointer !border-solid">
+          <span class="material-symbols-outlined !text-[16px]">photo_camera</span>Photo of signature <span class="te-inline">ఫోటో</span>
+          <input type="file" accept="image/*" capture="environment" id="sigCapture" class="hidden"/>
+        </label>
+        <label class="row-btn cursor-pointer !border-solid">
+          <span class="material-symbols-outlined !text-[16px]">upload</span>Upload signature <span class="te-inline">అప్‌లోడ్</span>
+          <input type="file" accept="image/*" id="sigUpload" class="hidden"/>
+        </label>
+        <button type="button" id="sigRemove" class="row-btn icon-btn-remove hidden !border-solid"><span class="material-symbols-outlined !text-[16px]">delete</span>Remove <span class="te-inline">తీసివేయండి</span></button>
+      </div>
+      <p id="sigStatus" class="text-xs text-on-surface-variant text-center mt-1"></p>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-3">
+      <div class="field"><label class="field-label" for="place"><span class="req">Place</span><span class="te">స్థలం</span></label><input id="place" name="place" required/></div>
+      <div class="field"><label class="field-label" for="applyDate">Date<span class="te">తేదీ</span></label><input id="applyDate" name="applyDate" type="date" readonly class="bg-surface-muted"/></div>
+    </div>
+  </section>
+
+</form>
+</main>
+
+<!-- Sticky bottom action bar -->
+<div id="bottomBar" class="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur border-t border-outline">
+  <div class="max-w-container-max mx-auto px-4 py-3 flex items-center gap-3">
+    <div class="hidden sm:block text-xs text-on-surface-variant flex-1" id="statusHint">Fill in the sections above, then submit.</div>
+    <button id="submitBtn" type="button" class="ml-auto flex-1 sm:flex-none flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-white font-semibold text-sm py-3 px-6 rounded-full shadow-pop transition-all active:scale-95">
+      <span class="material-symbols-outlined !text-[18px]">send</span>Submit Application <span class="te-inline">సమర్పించండి</span>
+    </button>
+  </div>
+</div>
+
+<div id="toast" class="toast"><div class="bg-on-surface text-white text-sm px-4 py-3 rounded-xl shadow-pop flex items-center gap-2"><span class="material-symbols-outlined !text-[18px]" id="toastIcon">check_circle</span><span id="toastMsg">Saved</span></div></div>
+
+<!-- DevTools / inspection guard -->
+<div id="devtoolsGuard">
+  <div>
+    <span class="material-symbols-outlined !text-[40px] text-outline-strong">visibility_off</span>
+    <p class="font-display font-bold text-base mt-2">This view is restricted</p>
+    <p class="text-sm text-on-surface-variant mt-1">Please close developer tools to continue using this form.</p>
+  </div>
+</div>
+
+<!-- Submitting overlay -->
+<div id="submitOverlay" class="fixed inset-0 bg-black/40 z-50 hidden items-center justify-center">
+  <div class="bg-white rounded-2xl p-6 max-w-xs w-full text-center shadow-pop">
+    <div class="w-10 h-10 border-4 border-primary-container border-t-primary rounded-full animate-spin mx-auto mb-3"></div>
+    <p class="font-semibold text-sm" id="overlayText">Submitting your application…</p>
+    <p class="text-xs text-on-surface-variant mt-1">Please don't close this page</p>
+  </div>
+</div>
+
+<script>
+const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzQ0zivGherWO2-WNA4VIjO9FuUVH2vjHMqD3EIXUD1SmJIqri7xmap47hVlPDiqD-L/exec";
+
+/* ---------------------------- Small helpers ---------------------------- */
+const $ = (sel, ctx = document) => ctx.querySelector(sel);
+const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
+const uid = () => Math.random().toString(36).slice(2, 9);
+
+function toast(msg, type = "success") {
+  const t = $("#toast"), icon = $("#toastIcon");
+  $("#toastMsg").textContent = msg;
+  icon.textContent = type === "success" ? "check_circle" : (type === "error" ? "error" : "info");
+  t.classList.add("show");
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => t.classList.remove("show"), 3200);
+}
+
+/* ---------------------------- Section nav / progress ---------------------------- */
+const sections = ["sec-personal","sec-family","sec-education","sec-experience","sec-salary","sec-writeups","sec-references","sec-photo","sec-declare"];
+const chips = $$("#navChips a");
+
+function updateActiveChip() {
+  let current = sections[0];
+  for (const id of sections) {
+    const el = document.getElementById(id);
+    if (el && el.getBoundingClientRect().top - 140 <= 0) current = id;
+  }
+  chips.forEach(c => c.classList.toggle("active", c.dataset.sec === current));
+  const idx = sections.indexOf(current);
+  $("#progressBar").style.width = Math.max(11, ((idx + 1) / sections.length) * 100) + "%";
+}
+document.addEventListener("scroll", () => requestAnimationFrame(updateActiveChip), { passive: true });
+updateActiveChip();
+
+/* ---------------------------- Age auto-calc ---------------------------- */
+$("#dob").addEventListener("change", (e) => {
+  const d = new Date(e.target.value);
+  if (isNaN(d)) return;
+  const diff = new Date(Date.now() - d.getTime());
+  $("#age").value = Math.abs(diff.getUTCFullYear() - 1970) + " years";
+});
+
+/* ---------------------------- Same-as-present address ---------------------------- */
+$("#sameAsPresent").addEventListener("change", (e) => {
+  const perm = $("#permanentAddress");
+  if (e.target.checked) {
+    perm.value = $("#presentAddress").value;
+    perm.readOnly = true;
+    perm.classList.add("bg-surface-muted");
+  } else {
+    perm.readOnly = false;
+    perm.classList.remove("bg-surface-muted");
+  }
+});
+$("#presentAddress").addEventListener("input", (e) => {
+  if ($("#sameAsPresent").checked) $("#permanentAddress").value = e.target.value;
+});
+
+/* ---------------------------- Numeric-only enforcement ----------------------------
+   Aadhaar fields: digits only, capped at 12.
+   Mobile / Contact fields: digits only, capped at 10.
+   Applies live (as the user types/pastes) and also covers dynamically-added
+   rows (family / employment) via event delegation on the whole form. */
+function digitsOnly(value, maxLen) {
+  return value.replace(/[^0-9]/g, "").slice(0, maxLen);
+}
+function isAadharField(name) {
+  return /^(aadharCardNumber|fam_aadhar_)/.test(name);
+}
+function isMobileField(name) {
+  return /^(mobile|ref1Mobile|ref2Mobile|fam_contact_|emp_hodcontact_)/.test(name);
+}
+$("#appForm").addEventListener("input", (e) => {
+  const el = e.target;
+  if (!el.name) return;
+  if (isAadharField(el.name)) {
+    el.value = digitsOnly(el.value, 12);
+  } else if (isMobileField(el.name)) {
+    el.value = digitsOnly(el.value, 10);
+  }
+});
+
+/* Default today's date */
+$("#applyDate").value = new Date().toISOString().slice(0, 10);
+
+/* =========================================================================
+   DYNAMIC TABLES: family / education / employment
+   ========================================================================= */
+function addRow(kind) {
+  const templates = {
+    family: () => {
+      const id = uid();
+      const tr = document.createElement("tr");
+      tr.className = "border-b border-surface-muted";
+      tr.dataset.id = id;
+      tr.innerHTML = `
+        <td class="py-1.5 pr-2 min-w-[220px]"><input name="fam_name_${id}" class="w-full"/></td>
+        <td class="py-1.5 pr-2"><select name="fam_gender_${id}"><option value="">-</option><option>Male</option><option>Female</option><option>Other</option></select></td>
+        <td class="py-1.5 pr-2"><input name="fam_rel_${id}" placeholder="e.g. Son, Sister"/></td>
+		<td class="py-1.5 pr-2"><input name="fam_dob_${id}" type="date"/></td>
+		<td class="py-1.5 pr-2 min-w-[90px]"><input name="fam_age_${id}" type="text" readonly class="bg-surface-muted" placeholder="Auto"/></td>
+        <td class="py-1.5 pr-2"><input name="fam_contact_${id}" type="tel" inputmode="numeric" maxlength="10" pattern="[0-9]{10}" title="Enter exactly 10 digits" placeholder="10-digit mobile"/></td>
+        <td class="py-1.5 pr-2"><input name="fam_aadhar_${id}" inputmode="numeric" maxlength="12" pattern="[0-9]{12}" title="Enter exactly 12 digits" placeholder="12-digit Aadhar"/></td>
+        <td class="py-1.5 pr-2"><input name="fam_occ_${id}" placeholder="Occupation"/></td>
+        <td class="py-1.5"><button type="button" class="icon-btn-remove" data-remove-row><span class="material-symbols-outlined !text-[18px]">close</span></button></td>`;
+      return tr;
+    },
+    edu: () => {
+      const id = uid();
+      const tr = document.createElement("tr");
+      tr.className = "border-b border-surface-muted";
+      tr.dataset.id = id;
+      tr.innerHTML = `
+        <td class="py-1.5 pr-2"><input name="edu_inst_${id}" placeholder="Institution / Board"/></td>
+        <td class="py-1.5 pr-2"><select name="edu_level_${id}"><option value="">Select</option><option>SSC</option><option>Intermediate</option><option>Diploma</option><option>Degree</option><option>PG</option><option>Other</option></select></td>
+        <td class="py-1.5 pr-2"><input name="edu_year_${id}" type="number" min="1970" max="2100" placeholder="Year"/></td>
+        <td class="py-1.5 pr-2"><input name="edu_group_${id}" placeholder="Group/Branch/Trade"/></td>
+        <td class="py-1.5 pr-2"><input name="edu_grade_${id}" placeholder="Class/Grade/%"/></td>
+        <td class="py-1.5"><button type="button" class="icon-btn-remove" data-remove-row><span class="material-symbols-outlined !text-[18px]">close</span></button></td>`;
+      return tr;
+    },
+    emp: () => {
+      const id = uid();
+      const tr = document.createElement("tr");
+      tr.className = "border-b border-surface-muted align-top";
+      tr.dataset.id = id;
+      tr.innerHTML = `
+        <td class="py-1.5 pr-2 min-w-[440px]"><textarea name="emp_company_${id}" rows="1" placeholder="Company name &amp; address"></textarea></td>
+        <td class="py-1.5 pr-2 min-w-[140px]"><input name="emp_join_${id}" type="date"/></td>
+        <td class="py-1.5 pr-2 min-w-[140px]"><input name="emp_leave_${id}" type="date"/></td>
+        <td class="py-1.5 pr-2 min-w-[150px]"><input name="emp_period_${id}" type="text" readonly class="bg-surface-muted" placeholder="Years, months"/></td>
+        <td class="py-1.5 pr-2 min-w-[190px]"><input name="emp_position_${id}" placeholder="Position"/></td>
+        <td class="py-1.5 pr-2 min-w-[190px]"><input name="emp_hodname_${id}" placeholder="Name of your HOD"/></td>
+        <td class="py-1.5 pr-2 min-w-[160px]"><input name="emp_hodcontact_${id}" type="tel" inputmode="numeric" maxlength="10" pattern="[0-9]{10}" title="Enter exactly 10 digits" placeholder="10-digit contact"/></td>
+        <td class="py-1.5 pr-2 min-w-[170px]"><input name="emp_startsal_${id}" type="number" placeholder="₹"/></td>
+        <td class="py-1.5 pr-2 min-w-[170px]"><input name="emp_endsal_${id}" type="number" placeholder="₹"/></td>
+        <td class="py-1.5 pr-2 min-w-[190px]"><input name="emp_reason_${id}" placeholder="Reason for leaving"/></td>
+        <td class="py-1.5"><button type="button" class="icon-btn-remove" data-remove-row><span class="material-symbols-outlined !text-[18px]">close</span></button></td>`;
+      return tr;
+    },
+  };
+  const bodyId = { family: "familyBody", edu: "eduBody", emp: "empBody" }[kind];
+  $("#" + bodyId).appendChild(templates[kind]());
+}
+$$("[data-add]").forEach(btn => btn.addEventListener("click", () => addRow(btn.dataset.add)));
+document.addEventListener("click", (e) => {
+  const rm = e.target.closest("[data-remove-row]");
+  if (rm) rm.closest("tr").remove();
+});
+
+/* ---------------------------- Employment: auto period worked ---------------------------- */
+// Computes "X years, Y months" between Date Joining and Date Leaving
+// (falls back to today if Date Leaving is left blank, i.e. still employed).
+function formatPeriod(months) {
+  if (months < 0) return "";
+  const years = Math.floor(months / 12);
+  const rem = months % 12;
+  const parts = [];
+  if (years) parts.push(years + (years === 1 ? " year" : " years"));
+  if (rem || !years) parts.push(rem + (rem === 1 ? " month" : " months"));
+  return parts.join(", ");
+}
+function calcEmploymentPeriod(tr) {
+  const id = tr.dataset.id;
+  const joinEl = tr.querySelector(`[name="emp_join_${id}"]`);
+  const leaveEl = tr.querySelector(`[name="emp_leave_${id}"]`);
+  const periodEl = tr.querySelector(`[name="emp_period_${id}"]`);
+  if (!joinEl || !periodEl) return;
+  const joinVal = joinEl.value;
+  if (!joinVal) { periodEl.value = ""; return; }
+  const start = new Date(joinVal);
+  const end = leaveEl && leaveEl.value ? new Date(leaveEl.value) : new Date();
+  if (isNaN(start) || isNaN(end) || end < start) { periodEl.value = ""; return; }
+  let months = (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth());
+  if (end.getDate() < start.getDate()) months -= 1;
+  periodEl.value = formatPeriod(months);
+}
+$("#empBody").addEventListener("change", (e) => {
+  if (e.target.name && (e.target.name.startsWith("emp_join_") || e.target.name.startsWith("emp_leave_"))) {
+    calcEmploymentPeriod(e.target.closest("tr"));
+  }
+});
+
+/* ---------------------------- Family: auto age from DOB ---------------------------- */
+function calcFamilyAge(tr) {
+  const id = tr.dataset.id;
+  const dobEl = tr.querySelector(`[name="fam_dob_${id}"]`);
+  const ageEl = tr.querySelector(`[name="fam_age_${id}"]`);
+  if (!dobEl || !ageEl) return;
+  if (!dobEl.value) { ageEl.value = ""; return; }
+  const dob = new Date(dobEl.value);
+  if (isNaN(dob)) { ageEl.value = ""; return; }
+  const diff = new Date(Date.now() - dob.getTime());
+  const age = Math.abs(diff.getUTCFullYear() - 1970);
+  ageEl.value = age >= 0 ? age : "";
+}
+$("#familyBody").addEventListener("change", (e) => {
+  if (e.target.name && e.target.name.startsWith("fam_dob_")) {
+    calcFamilyAge(e.target.closest("tr"));
+  }
+});
+
+// seed with a couple of starter rows
+addRow("family");
+addRow("edu"); addRow("edu");
+addRow("emp");
+
+/* =========================================================================
+   SALARY TABLE — auto per-annum + totals
+   ========================================================================= */
+const salaryComponents = ["Basic","HRA","CEA","WA","Conveyance","LTA","Medical Allowance","PF","ESI","Bonus","Others"];
+const salaryBody = $("#salaryBody");
+salaryComponents.forEach(name => {
+  const key = name.replace(/\s+/g, "");
+  const tr = document.createElement("tr");
+  tr.innerHTML = `
+    <td class="py-1.5 pr-2 text-sm">${name}</td>
+    <td class="py-1.5 pr-2"><input data-sal-month="${key}" type="number" min="0" placeholder="0"/></td>
+    <td class="py-1.5 pr-2"><input data-sal-annum="${key}" type="number" readonly class="bg-surface-muted" placeholder="0"/></td>`;
+  salaryBody.appendChild(tr);
+});
+function recalcSalary() {
+  let totalM = 0, totalA = 0;
+  salaryComponents.forEach(name => {
+    const key = name.replace(/\s+/g, "");
+    const m = parseFloat($(`[data-sal-month="${key}"]`).value) || 0;
+    const a = m * 12;
+    $(`[data-sal-annum="${key}"]`).value = a ? a.toFixed(0) : "";
+    totalM += m; totalA += a;
+  });
+  $("#salaryTotalMonth").value = totalM.toFixed(0);
+  $("#salaryTotalAnnum").value = totalA.toFixed(0);
+}
+salaryBody.addEventListener("input", recalcSalary);
+recalcSalary();
+const DRAFT_KEY = "saiswarna_job_app_draft_v1";
+function serializeForm() {
+  const data = {};
+  $$("#appForm input, #appForm select, #appForm textarea").forEach(el => {
+    if (!el.name) return;
+    if (el.type === "checkbox") data[el.name] = el.checked;
+    else if (el.type !== "file") data[el.name] = el.value;
+  });
+  return data;
+}
+function saveDraft(silent) {
+  try {
+    localStorage.setItem(DRAFT_KEY, JSON.stringify(serializeForm()));
+    if (!silent) toast("Draft saved on this device");
+  } catch (err) { console.warn("draft save failed", err); }
+}
+function loadDraft() {
+  try {
+    const raw = localStorage.getItem(DRAFT_KEY);
+    if (!raw) return;
+    const data = JSON.parse(raw);
+    Object.entries(data).forEach(([name, val]) => {
+      const el = $(`#appForm [name="${CSS.escape(name)}"]`);
+      if (!el) return;
+      if (el.type === "checkbox") el.checked = !!val;
+      else el.value = val;
+    });
+    recalcSalary();
+  } catch (err) { console.warn("draft load failed", err); }
+}
+$("#draftBtn").addEventListener("click", () => saveDraft(false));
+window.addEventListener("beforeunload", () => saveDraft(true));
+loadDraft();
+const MAX_BYTES = 1024 * 1024; // 1 MB
+let photoDataUrl = null; // final compressed base64 (data URL)
+let photoMime = "image/jpeg";
+
+function fileToImage(file) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const reader = new FileReader();
+    reader.onload = () => { img.onload = () => resolve(img); img.onerror = reject; img.src = reader.result; };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+async function compressImage(file) {
+  const img = await fileToImage(file);
+  let width = img.width, height = img.height;
+  const MAX_DIM = 1280;
+  if (width > MAX_DIM || height > MAX_DIM) {
+    const scale = MAX_DIM / Math.max(width, height);
+    width = Math.round(width * scale);
+    height = Math.round(height * scale);
+  }
+  const canvas = document.createElement("canvas");
+  canvas.width = width; canvas.height = height;
+  const ctx = canvas.getContext("2d");
+  ctx.drawImage(img, 0, 0, width, height);
+
+  let quality = 0.9;
+  let dataUrl = canvas.toDataURL("image/jpeg", quality);
+  const sizeOf = (du) => Math.round((du.length - "data:image/jpeg;base64,".length) * 0.75);
+
+  let attempts = 0;
+  while (sizeOf(dataUrl) > MAX_BYTES && attempts < 8) {
+    quality -= 0.1;
+    if (quality < 0.35 && width > 480) {
+      width = Math.round(width * 0.85);
+      height = Math.round(height * 0.85);
+      canvas.width = width; canvas.height = height;
+      ctx.drawImage(img, 0, 0, width, height);
+      quality = 0.7;
+    }
+    dataUrl = canvas.toDataURL("image/jpeg", Math.max(quality, 0.3));
+    attempts++;
+  }
+  return { dataUrl, size: sizeOf(dataUrl), width, height };
+}
+async function handlePhotoFile(file) {
+  if (!file) return;
+  $("#photoStatus").textContent = "Compressing photo…";
+  try {
+    const { dataUrl, size } = await compressImage(file);
+    photoDataUrl = dataUrl;
+    $("#photoPreview").src = dataUrl;
+    $("#photoPreview").classList.remove("hidden");
+    $("#photoPlaceholderIcon").classList.add("hidden");
+    $("#photoClear").classList.remove("hidden");
+    $("#photoStatus").textContent = `Ready · ${(size / 1024).toFixed(0)} KB (under 1 MB)`;
+  } catch (err) {
+    console.error(err);
+    $("#photoStatus").textContent = "Could not process that photo — please try again.";
+    toast("Photo processing failed", "error");
+  }
+}
+$("#photoCapture").addEventListener("change", (e) => handlePhotoFile(e.target.files[0]));
+$("#photoUpload").addEventListener("change", (e) => handlePhotoFile(e.target.files[0]));
+$("#photoClear").addEventListener("click", () => {
+  photoDataUrl = null;
+  $("#photoPreview").classList.add("hidden");
+  $("#photoPlaceholderIcon").classList.remove("hidden");
+  $("#photoClear").classList.add("hidden");
+  $("#photoStatus").textContent = "";
+  $("#photoCapture").value = ""; $("#photoUpload").value = "";
+});
+
+/* ------------------------- Digital signature capture ------------------------- */
+const SIG_MAX_BYTES = 500 * 1024; // 500 KB hard cap
+let sigDataUrl = null; // final compressed base64 (data URL), <500KB
+const sigCanvas = $("#sigCanvas");
+const sigCtx = sigCanvas.getContext("2d");
+let sigDrawing = false;
+let sigHasStrokes = false;
+let sigLastX = 0, sigLastY = 0;
+
+function sizeOfDataUrl(du) {
+  const idx = du.indexOf(",");
+  return Math.round((du.length - idx - 1) * 0.75);
+}
+
+// Compress an arbitrary canvas down to maxBytes by lowering JPEG quality,
+// then progressively downscaling if quality alone isn't enough.
+async function compressCanvasToDataUrl(sourceCanvas, maxBytes, startQuality = 0.92) {
+  let width = sourceCanvas.width, height = sourceCanvas.height;
+  let workCanvas = sourceCanvas;
+  let quality = startQuality;
+  let dataUrl = workCanvas.toDataURL("image/jpeg", quality);
+  let attempts = 0;
+  while (sizeOfDataUrl(dataUrl) > maxBytes && attempts < 10) {
+    quality -= 0.1;
+    if (quality < 0.35 && width > 280) {
+      width = Math.round(width * 0.85);
+      height = Math.round(height * 0.85);
+      const scaled = document.createElement("canvas");
+      scaled.width = width; scaled.height = height;
+      scaled.getContext("2d").drawImage(workCanvas, 0, 0, width, height);
+      workCanvas = scaled;
+      quality = 0.7;
+    }
+    dataUrl = workCanvas.toDataURL("image/jpeg", Math.max(quality, 0.3));
+    attempts++;
+  }
+  return { dataUrl, size: sizeOfDataUrl(dataUrl) };
+}
+
+function sizeCanvasForPad() {
+  const rect = sigCanvas.getBoundingClientRect();
+  const ratio = window.devicePixelRatio || 1;
+  sigCanvas.width = Math.max(1, Math.round(rect.width * ratio));
+  sigCanvas.height = Math.max(1, Math.round(rect.height * ratio));
+  sigCtx.setTransform(ratio, 0, 0, ratio, 0, 0);
+  sigCtx.lineWidth = 2.4;
+  sigCtx.lineCap = "round";
+  sigCtx.lineJoin = "round";
+  sigCtx.strokeStyle = "#1a1d29";
+}
+sizeCanvasForPad();
+window.addEventListener("resize", () => { if (!sigHasStrokes) sizeCanvasForPad(); });
+
+function sigStatusReady(size) {
+  $("#sigStatus").textContent = `Ready · ${(size / 1024).toFixed(0)} KB (under 500 KB)`;
+}
+
+function sigPointerPos(e) {
+  const rect = sigCanvas.getBoundingClientRect();
+  const point = e.touches && e.touches.length ? e.touches[0] : e;
+  return { x: point.clientX - rect.left, y: point.clientY - rect.top };
+}
+function sigStart(e) {
+  e.preventDefault();
+  sigDrawing = true;
+  const p = sigPointerPos(e);
+  sigLastX = p.x; sigLastY = p.y;
+  $("#sigPlaceholder").classList.add("hidden");
+}
+function sigMove(e) {
+  if (!sigDrawing) return;
+  e.preventDefault();
+  const p = sigPointerPos(e);
+  sigCtx.beginPath();
+  sigCtx.moveTo(sigLastX, sigLastY);
+  sigCtx.lineTo(p.x, p.y);
+  sigCtx.stroke();
+  sigLastX = p.x; sigLastY = p.y;
+  sigHasStrokes = true;
+}
+async function commitDrawnSignature() {
+  $("#sigStatus").textContent = "Compressing signature…";
+  try {
+    // Flatten onto a white background (canvas is transparent; JPEG needs opaque bg)
+    const flat = document.createElement("canvas");
+    flat.width = sigCanvas.width; flat.height = sigCanvas.height;
+    const fctx = flat.getContext("2d");
+    fctx.fillStyle = "#ffffff";
+    fctx.fillRect(0, 0, flat.width, flat.height);
+    fctx.drawImage(sigCanvas, 0, 0);
+    const { dataUrl, size } = await compressCanvasToDataUrl(flat, SIG_MAX_BYTES);
+    sigDataUrl = dataUrl;
+    sigStatusReady(size);
+    $("#sigRemove").classList.remove("hidden");
+  } catch (err) {
+    console.error(err);
+    $("#sigStatus").textContent = "Could not process signature — please try again.";
+    toast("Signature processing failed", "error");
+  }
+}
+async function sigEnd(e) {
+  if (!sigDrawing) return;
+  sigDrawing = false;
+  if (sigHasStrokes) await commitDrawnSignature();
+}
+sigCanvas.addEventListener("mousedown", sigStart);
+sigCanvas.addEventListener("mousemove", sigMove);
+window.addEventListener("mouseup", sigEnd);
+sigCanvas.addEventListener("touchstart", sigStart, { passive: false });
+sigCanvas.addEventListener("touchmove", sigMove, { passive: false });
+sigCanvas.addEventListener("touchend", sigEnd);
+sigCanvas.addEventListener("touchcancel", sigEnd);
+
+function resetSigPad() {
+  sigHasStrokes = false;
+  sizeCanvasForPad();
+  sigCtx.clearRect(0, 0, sigCanvas.width, sigCanvas.height);
+}
+$("#sigClearPad").addEventListener("click", () => {
+  sigDataUrl = null;
+  resetSigPad();
+  $("#sigPreview").classList.add("hidden");
+  $("#sigCanvas").classList.remove("hidden");
+  $("#sigPlaceholder").classList.remove("hidden");
+  $("#sigRemove").classList.add("hidden");
+  $("#sigStatus").textContent = "";
+  $("#sigCapture").value = ""; $("#sigUpload").value = "";
+});
+$("#sigRemove").addEventListener("click", () => {
+  sigDataUrl = null;
+  resetSigPad();
+  $("#sigPreview").classList.add("hidden");
+  $("#sigCanvas").classList.remove("hidden");
+  $("#sigPlaceholder").classList.remove("hidden");
+  $("#sigRemove").classList.add("hidden");
+  $("#sigStatus").textContent = "";
+  $("#sigCapture").value = ""; $("#sigUpload").value = "";
+});
+
+async function handleSignatureFile(file) {
+  if (!file) return;
+  $("#sigStatus").textContent = "Compressing signature…";
+  try {
+    const img = await fileToImage(file);
+    let width = img.width, height = img.height;
+    const MAX_DIM = 1000;
+    if (width > MAX_DIM || height > MAX_DIM) {
+      const scale = MAX_DIM / Math.max(width, height);
+      width = Math.round(width * scale);
+      height = Math.round(height * scale);
+    }
+    const canvas = document.createElement("canvas");
+    canvas.width = width; canvas.height = height;
+    const ctx = canvas.getContext("2d");
+    ctx.fillStyle = "#ffffff";
+    ctx.fillRect(0, 0, width, height);
+    ctx.drawImage(img, 0, 0, width, height);
+    const { dataUrl, size } = await compressCanvasToDataUrl(canvas, SIG_MAX_BYTES);
+    sigDataUrl = dataUrl;
+    $("#sigPreview").src = dataUrl;
+    $("#sigPreview").classList.remove("hidden");
+    $("#sigCanvas").classList.add("hidden");
+    $("#sigPlaceholder").classList.add("hidden");
+    $("#sigRemove").classList.remove("hidden");
+    sigStatusReady(size);
+  } catch (err) {
+    console.error(err);
+    $("#sigStatus").textContent = "Could not process that image — please try again.";
+    toast("Signature processing failed", "error");
+  }
+}
+$("#sigCapture").addEventListener("change", (e) => handleSignatureFile(e.target.files[0]));
+$("#sigUpload").addEventListener("change", (e) => handleSignatureFile(e.target.files[0]));
+function collectRows(prefixMap, bodyId) {
+  const rows = [];
+  $$(`#${bodyId} tr`).forEach(tr => {
+    const id = tr.dataset.id;
+    const row = {};
+    Object.entries(prefixMap).forEach(([field, prefix]) => {
+      const el = tr.querySelector(`[name="${prefix}${id}"]`);
+      row[field] = el ? el.value : "";
+    });
+    if (Object.values(row).some(v => v && v.toString().trim() !== "")) rows.push(row);
+  });
+  return rows;
+}
+function buildPayload() {
+  const data = serializeForm();
+  data.family = collectRows({ name: "fam_name_", gender: "fam_gender_", age: "fam_age_", relationship: "fam_rel_", dob: "fam_dob_", contact: "fam_contact_", aadhar: "fam_aadhar_", occupation: "fam_occ_" }, "familyBody");
+  data.education = collectRows({ institution: "edu_inst_", level: "edu_level_", year: "edu_year_", group: "edu_group_", grade: "edu_grade_" }, "eduBody");
+  data.employment = collectRows({ company: "emp_company_", joining: "emp_join_", leaving: "emp_leave_", periodWorked: "emp_period_", position: "emp_position_", hodName: "emp_hodname_", hodContact: "emp_hodcontact_", startSalary: "emp_startsal_", endSalary: "emp_endsal_", reason: "emp_reason_" }, "empBody");
+  data.salary = {};
+  salaryComponents.forEach(name => {
+    const key = name.replace(/\s+/g, "");
+    data.salary[name] = {
+      perMonth: $(`[data-sal-month="${key}"]`).value || "0",
+      perAnnum: $(`[data-sal-annum="${key}"]`).value || "0",
+    };
+  });
+  data.salaryTotalMonth = $("#salaryTotalMonth").value;
+  data.salaryTotalAnnum = $("#salaryTotalAnnum").value;
+  data.photoBase64 = photoDataUrl || "";
+  data.signatureBase64 = sigDataUrl || "";
+  data.submittedAt = new Date().toISOString();
+  return data;
+}
+
+function firstInvalidField() {
+  const required = $$("#appForm [required]");
+  return required.find(el => !el.checkValidity());
+}
+
+/* At least one Family Member row must have Name, Gender and Relationship filled. */
+function hasValidFamilyRow() {
+  return $$("#familyBody tr").some(tr => {
+    const id = tr.dataset.id;
+    const name = (tr.querySelector(`[name="fam_name_${id}"]`)?.value || "").trim();
+    const gender = (tr.querySelector(`[name="fam_gender_${id}"]`)?.value || "").trim();
+    const rel = (tr.querySelector(`[name="fam_rel_${id}"]`)?.value || "").trim();
+    return name && gender && rel;
+  });
+}
+
+function resetFormAfterSubmit() {
+  // 1. Reset all plain inputs/selects/textareas to their default values
+  $("#appForm").reset();
+
+  // 2. Clear the dynamic table rows (family / education / employment) and re-seed starters
+  ["familyBody", "eduBody", "empBody"].forEach(id => { $("#" + id).innerHTML = ""; });
+  addRow("family");
+  addRow("edu"); addRow("edu");
+  addRow("emp");
+
+  // 3. Clear the computed/derived fields that .reset() doesn't touch
+  $("#age").value = "";
+  recalcSalary();
+
+  // 4. Clear the photo state
+  photoDataUrl = null;
+  $("#photoPreview").classList.add("hidden");
+  $("#photoPlaceholderIcon").classList.remove("hidden");
+  $("#photoClear").classList.add("hidden");
+  $("#photoStatus").textContent = "";
+  $("#photoCapture").value = ""; $("#photoUpload").value = "";
+
+  // 4b. Clear the signature state
+  sigDataUrl = null;
+  resetSigPad();
+  $("#sigPreview").classList.add("hidden");
+  $("#sigCanvas").classList.remove("hidden");
+  $("#sigPlaceholder").classList.remove("hidden");
+  $("#sigRemove").classList.add("hidden");
+  $("#sigStatus").textContent = "";
+  $("#sigCapture").value = ""; $("#sigUpload").value = "";
+
+  // 5. Reset the step-chip navigation & progress bar back to section 1
+  chips.forEach(c => c.classList.remove("active", "done"));
+  chips[0].classList.add("active");
+  $("#progressBar").style.width = "11%";
+
+  // 6. Re-enable the submit button for a fresh application
+  $("#submitBtn").disabled = false;
+  $("#submitBtn").classList.remove("opacity-60");
+
+  window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+$("#submitBtn").addEventListener("click", async () => {
+  const invalid = firstInvalidField();
+  if (invalid) {
+    invalid.scrollIntoView({ behavior: "smooth", block: "center" });
+    invalid.focus();
+    toast("Please fill the highlighted required field", "error");
+    return;
+  }
+  if (!hasValidFamilyRow()) {
+    $("#sec-family").scrollIntoView({ behavior: "smooth", block: "start" });
+    toast("Please add at least one Family Member (Name, Gender & Relationship)", "error");
+    return;
+  }
+  if (!photoDataUrl) {
+    $("#photoPreviewWrap").scrollIntoView({ behavior: "smooth", block: "center" });
+    toast("Please add your photo before submitting", "error");
+    return;
+  }
+  if (!sigDataUrl) {
+    $("#sigPadWrap").scrollIntoView({ behavior: "smooth", block: "center" });
+    toast("Please add your signature before submitting", "error");
+    return;
+  }
+  if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes("PASTE_YOUR")) {
+    toast("Backend not configured yet — see setup instructions (Apps Script URL missing)", "error");
+    return;
+  }
+
+  const payload = buildPayload();
+  $("#submitOverlay").classList.remove("hidden");
+  $("#submitOverlay").classList.add("flex");
+  $("#overlayText").textContent = "Uploading photo & saving your application…";
+
+  try {
+    const res = await fetch(APPS_SCRIPT_URL, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain;charset=utf-8" }, // avoids CORS preflight to Apps Script
+      body: JSON.stringify(payload),
+    });
+    const result = await res.json().catch(() => ({ status: "ok" }));
+    if (result.status && result.status !== "ok") throw new Error(result.message || "Submission failed");
+
+    localStorage.removeItem(DRAFT_KEY);
+    $("#submitOverlay").classList.add("hidden");
+    $("#submitOverlay").classList.remove("flex");
+    toast("Application submitted successfully! We'll contact you soon.");
+    $("#statusHint").textContent = "✓ Submitted successfully.";
+    resetFormAfterSubmit();
+  } catch (err) {
+    console.error(err);
+    $("#submitOverlay").classList.add("hidden");
+    $("#submitOverlay").classList.remove("flex");
+    toast("Could not submit — check your internet connection and try again", "error");
+  }
+});
+
+/* =========================================================================
+   COPY / INSPECTION DETERRENTS
+   Note: this raises the bar for casual copying only. A browser must
+   download the full HTML/CSS/JS to render this page, so no client-side
+   technique can make source code fully inaccessible to a determined
+   visitor — these steps just discourage casual right-click / view-source
+   / DevTools use and are not a substitute for server-side protection of
+   anything genuinely sensitive (which this page does not contain, since
+   APPS_SCRIPT_URL is a public submit endpoint by design).
+   ========================================================================= */
+(function () {
+  // Block right-click context menu
+  document.addEventListener("contextmenu", (e) => e.preventDefault());
+
+  // Block text/image drag
+  document.addEventListener("dragstart", (e) => e.preventDefault());
+
+  // Block common "view source" / DevTools / save-page shortcuts
+  document.addEventListener("keydown", (e) => {
+    const k = e.key ? e.key.toUpperCase() : "";
+    const blocked =
+      k === "F12" ||
+      (e.ctrlKey && k === "U") ||                                   // view-source
+      (e.ctrlKey && k === "S") ||                                   // save page
+      (e.ctrlKey && e.shiftKey && (k === "I" || k === "J" || k === "C")) || // DevTools panels
+      (e.metaKey && e.altKey && (k === "I" || k === "J" || k === "C"));    // macOS DevTools
+    if (blocked) { e.preventDefault(); e.stopPropagation(); }
+  });
+
+  // Best-effort DevTools-open detection (window size delta heuristic).
+  // Works for a docked DevTools panel; does not catch every configuration.
+  const guard = document.getElementById("devtoolsGuard");
+  const THRESHOLD = 160;
+  function checkDevtools() {
+    const widthDelta = window.outerWidth - window.innerWidth;
+    const heightDelta = window.outerHeight - window.innerHeight;
+    const open = widthDelta > THRESHOLD || heightDelta > THRESHOLD;
+    if (guard) guard.classList.toggle("show", open);
+  }
+  setInterval(checkDevtools, 800);
+  window.addEventListener("resize", checkDevtools);
+
+  // Quiet the console for casual snooping (does not stop the Sources/Network panel)
+  console.log("%cStop", "color:#c02b2b;font-size:34px;font-weight:bold;");
+  console.log("%cThis is a browser feature intended for developers. Copying or modifying this form's code without authorization is not permitted.", "font-size:14px;");
+})();
+</script>
+</body>
+</html>
