@@ -1,1188 +1,489 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0, viewport-fit=cover" name="viewport"/>
-<title>Sai Swarna Automobiles</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=Noto+Sans+Telugu:wght@400;500;600;700&display=swap" rel="stylesheet"/>
-<link rel="icon" type="image/png" href="https://lh3.googleusercontent.com/d/1LaYxfUQwET7eHDRvoxnzmP_-DYudIKji">
-<script>
-tailwind.config = {
-  theme: {
-    extend: {
-      colors: {
-        primary: "#003d9b",
-        "primary-dark": "#002a6e",
-        "primary-container": "#e8effe",
-        secondary: "#5e4db9",
-        surface: "#f7f8fb",
-        "surface-card": "#ffffff",
-        "surface-muted": "#eef1f6",
-        outline: "#d7dae2",
-        "outline-strong": "#b7bccb",
-        "on-surface": "#1a1d29",
-        "on-surface-variant": "#5a5f72",
-        success: "#1c8a4b",
-        "success-container": "#e5f6ec",
-        error: "#c02b2b",
-        "error-container": "#fdecec",
-      },
-      fontFamily: {
-        display: ["Hanken Grotesk", "sans-serif"],
-        body: ["Inter", "sans-serif"],
-      },
-      borderRadius: { xl: "1rem", "2xl": "1.25rem" },
-      spacing: { "container-max": "880px" },
-      boxShadow: {
-        card: "0 1px 2px rgba(16,24,64,0.04), 0 4px 16px rgba(16,24,64,0.06)",
-        pop: "0 8px 30px rgba(16,24,64,0.14)",
-      },
-    },
-  },
-};
-</script>
+<meta charset="UTF-8">
+<title>Sai Swarna Car Service - Feedback Survey</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-  * { -webkit-tap-highlight-color: transparent; }
-  body { font-family: 'Inter', sans-serif; }
-  h1,h2,h3,.font-display { font-family: 'Hanken Grotesk', sans-serif; }
-  .material-symbols-outlined { font-variation-settings: 'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24; font-size: 20px; vertical-align: middle; }
-  input, select, textarea {
-    width: 100%; font-size: 16px; padding: 9px 12px; border-radius: 0.75rem;
-    border: 1.5px solid #d7dae2; background: #fff; transition: border-color .15s, box-shadow .15s;
-    color: #1a1d29; box-sizing: border-box;
-  }
-  input:focus, select:focus, textarea:focus {
-    outline: none; border-color: #003d9b; box-shadow: 0 0 0 4px rgba(0,61,155,0.12);
-  }
-  input::placeholder, textarea::placeholder { color: #9aa0b4; }
-  /* Consistent field wrapper: every label+control pair uses this so the
-     gap between a label and its input/select is identical everywhere. */
-  .field { display: flex; flex-direction: column; gap: 4px; }
-  .field-label { font-size: 13px; font-weight: 600; color: #3d4155; line-height: 1.25; display: flex; align-items: baseline; flex-wrap: wrap; column-gap: 6px; margin: 0; }
-  label.field-label { display: flex; }
-  .te { font-family: 'Noto Sans Telugu', sans-serif; font-weight: 500; color: #6b7086; flex-basis: 100%; display: block; font-size: 12px; margin-top: 0; }
-  .te-inline { font-family: 'Noto Sans Telugu', sans-serif; font-weight: 500; color: #6b7086; font-size: 11.5px; }
-  h2 .te, h1 .te { color: rgba(255,255,255,0.0); }
-  h2 .te-sub { font-family: 'Noto Sans Telugu', sans-serif; font-weight: 500; font-size: 12.5px; color: #5a5f72; display:block; margin-top:1px; }
-  .chip .te-inline { font-size: 10.5px; opacity: .85; }
-  .req::after { content: " *"; color: #c02b2b; }
-  .section-card { background: #fff; border-radius: 1.25rem; border: 1px solid #e7e9f0; box-shadow: 0 1px 2px rgba(16,24,64,0.04), 0 4px 16px rgba(16,24,64,0.05); scroll-margin-top: 96px; }
-  .chip { white-space: nowrap; font-size: 13px; font-weight: 600; padding: 7px 14px; border-radius: 999px; border: 1.5px solid #d7dae2; color: #5a5f72; transition: all .15s; }
-  .chip.active { background: #003d9b; border-color: #003d9b; color: #fff; }
-  .chip.done { border-color: #1c8a4b; color: #1c8a4b; }
-  .icon-badge { width: 38px; height: 38px; border-radius: 0.75rem; background: #e8effe; color: #003d9b; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  table input, table select { padding: 8px 10px; font-size: 14px; }
-  .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  .row-btn { display: inline-flex; align-items: center; gap: 4px; font-size: 13px; font-weight: 600; color: #003d9b; padding: 6px 10px; border-radius: 0.6rem; border: 1.5px dashed #b7c8ee; }
-  .row-btn:hover { background: #e8effe; }
-  .icon-btn-remove { color: #c02b2b; }
-  .toast { position: fixed; left: 50%; bottom: 92px; transform: translateX(-50%) translateY(20px); opacity:0; pointer-events:none; transition: all .25s; z-index:60; max-width: 92vw; }
-  .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
-  #camVideo, #camCanvas { border-radius: 1rem; }
-  .fade-slide { animation: fadeSlide .35s ease; }
-  @keyframes fadeSlide { from { opacity:0; transform: translateY(6px);} to {opacity:1; transform:translateY(0);} }
-  ::-webkit-scrollbar { height: 6px; width: 6px; }
-  ::-webkit-scrollbar-thumb { background: #cfd4e2; border-radius: 999px; }
-  /* Copy deterrents — see script at bottom of page for the matching JS */
-  body { -webkit-user-select: none; -moz-user-select: none; user-select: none; }
-  input, textarea, select { -webkit-user-select: text; -moz-user-select: text; user-select: text; }
-  img { -webkit-user-drag: none; user-drag: none; pointer-events: none; }
-  #devtoolsGuard { position: fixed; inset: 0; background: #f7f8fb; z-index: 999; display: none; align-items: center; justify-content: center; text-align: center; padding: 24px; }
-  #devtoolsGuard.show { display: flex; }
-  .te.badge {
-  display: inline-block;
-  margin-left: 6px;
-  padding: 2px 8px;
-  border-radius: 12px;
-  background: #f1f5f9;
-  font-size: 12px;
-  font-weight: 600;
+:root{
+  --navy:#0b2545; --blue:#13509a; --accent:#c8102e; --bg:#eef2f7; --card:#fff;
+  --line:#d9e0ea; --text:#1b2635; --muted:#6a778b;
 }
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:var(--bg);color:var(--text);
+  font-family:'Segoe UI',system-ui,-apple-system,Arial,sans-serif;display:flex;flex-direction:column}
+.topbar{background:var(--navy);color:#fff;padding:18px 20px;border-bottom:4px solid var(--accent)}
+.topbar .in{max-width:760px;margin:0 auto;display:flex;align-items:center;gap:14px}
+.logo{flex:none;width:58px;height:58px;background:#fff;border-radius:12px;display:flex;align-items:center;
+  justify-content:center;padding:8px;box-shadow:0 2px 10px rgba(0,0,0,.25)}
+.logo img{display:block;width:100%;height:100%;object-fit:contain}
+.brand{min-width:0}
+.topbar h1{margin:0;font-size:1.3rem;font-weight:600;letter-spacing:.02em}
+.topbar p{margin:4px 0 0;font-size:.88rem;color:#b9c7dc}
+.wrap{flex:1;width:100%;max-width:760px;margin:26px auto;padding:0 14px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;
+  box-shadow:0 6px 24px rgba(11,37,69,.08);padding:26px 24px}
+.meta{display:flex;justify-content:space-between;align-items:center;font-size:.85rem;
+  color:var(--muted);font-weight:600;margin-bottom:8px;text-transform:uppercase;letter-spacing:.06em}
+.bar{height:6px;background:#e4e9f0;border-radius:3px;overflow:hidden;margin-bottom:24px}
+.fill{height:100%;width:0;background:var(--blue);transition:width .35s ease}
+.q{padding-left:14px;border-left:4px solid var(--accent);margin-bottom:26px}
+.q span{display:block}
+.q .te{color:var(--navy);font-weight:600;font-size:1.08rem;margin-bottom:4px}
+.q .hi{color:#3d5a80;font-size:1rem;margin-bottom:4px}
+.q .en{color:var(--muted);font-size:.95rem}
 
-  /* ---------------------------------------------------------------------
-     MOBILE: full-screen, edge-to-edge layout.
-     On phones the outer page gutter and card corners/borders are removed
-     so each section fills the full device width like a native app screen,
-     while inner padding stays generous so content still feels comfortable
-     (not cramped against the glass).
-     --------------------------------------------------------------------- */
-  @media (max-width: 640px) {
-    header .max-w-container-max,
-    main.max-w-container-max,
-    #bottomBar .max-w-container-max {
-      padding-left: 14px;
-      padding-right: 14px;
-    }
-    main.max-w-container-max { padding-top: 12px; padding-bottom: 12px; }
-    #appForm { row-gap: 14px; }
-    .section-card {
-      border-radius: 0;
-      border-left-width: 0;
-      border-right-width: 0;
-      box-shadow: none;
-      margin-left: -14px;
-      margin-right: -14px;
-      padding-left: 16px !important;
-      padding-right: 16px !important;
-    }
-    .section-card + .section-card { border-top-width: 0; }
-    .chip { font-size: 12.5px; padding: 6px 12px; }
-  }
+/* 1-10 circles */
+.scale{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;justify-items:center}
+.dot{width:52px;height:52px;border-radius:50%;border:2px solid var(--line);background:#fff;
+  color:var(--navy);font-size:1.1rem;font-weight:600;cursor:pointer;transition:.18s;font-family:inherit}
+.dot:hover,.dot:focus-visible{border-color:var(--blue);background:#eaf1fb;outline:none;transform:translateY(-2px)}
+.dot.sel{background:var(--blue);border-color:var(--blue);color:#fff;transform:scale(1.08);
+  box-shadow:0 4px 12px rgba(19,80,154,.4)}
+.ends{display:flex;justify-content:space-between;gap:12px;margin-top:14px;font-size:.78rem;color:var(--muted)}
+.ends div:last-child{text-align:right}
+
+/* 3-option choices */
+.choices{display:flex;flex-direction:column;gap:10px}
+.choice{display:flex;align-items:center;gap:14px;text-align:left;width:100%;background:#fff;
+  border:1.5px solid var(--line);border-radius:8px;padding:13px 16px;cursor:pointer;
+  font-family:inherit;transition:.18s}
+.choice:hover,.choice:focus-visible{border-color:var(--blue);background:#f5f9ff;outline:none}
+.choice .radio{flex:none;width:20px;height:20px;border-radius:50%;border:2px solid #b7c2d3;transition:.18s}
+.choice.sel{border-color:var(--blue);background:#eaf1fb}
+.choice.sel .radio{border-color:var(--blue);background:radial-gradient(var(--blue) 45%,transparent 50%)}
+.choice .te{display:block;color:var(--navy);font-weight:600;font-size:.98rem}
+.choice .hi{display:block;color:#3d5a80;font-size:.9rem}
+.choice .en{display:block;color:var(--muted);font-size:.86rem}
+
+.nav{display:flex;justify-content:space-between;align-items:center;margin-top:24px}
+.btn{border:1.5px solid var(--navy);background:#fff;color:var(--navy);border-radius:6px;
+  padding:10px 22px;font-size:.95rem;font-weight:600;cursor:pointer;font-family:inherit;transition:.18s}
+.btn:hover{background:var(--navy);color:#fff}
+.btn:disabled{opacity:.35;pointer-events:none}
+.btn.primary{background:var(--navy);color:#fff}
+.btn.primary:hover{background:var(--blue);border-color:var(--blue)}
+
+.done{text-align:center;padding:18px 6px}
+.tick{width:68px;height:68px;border-radius:50%;background:#e6f4ea;color:#1e8e3e;font-size:2rem;
+  display:flex;align-items:center;justify-content:center;margin:0 auto 16px}
+.done h2{color:var(--navy);margin:0 0 8px}
+.done p{color:var(--muted);margin:4px 0}
+/* customer details form */
+.dtitle{margin:0 0 4px;color:var(--navy);font-size:1.15rem;font-weight:600}
+.dsub{margin:0 0 20px;color:var(--muted);font-size:.88rem}
+.fgrid{display:grid;grid-template-columns:1fr;gap:16px}
+.field label{display:block;font-size:.8rem;font-weight:600;color:var(--navy);margin-bottom:6px;
+  text-transform:uppercase;letter-spacing:.05em}
+.field label i{color:var(--accent);font-style:normal}
+.field input,.field select{width:100%;padding:12px 14px;font-size:1rem;font-family:inherit;color:var(--text);
+  background:#fff;border:1.5px solid var(--line);border-radius:6px;transition:.18s}
+.field input:focus,.field select:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3px rgba(19,80,154,.15)}
+.field.bad input,.field.bad select{border-color:var(--accent)}
+.err{display:none;color:var(--accent);font-size:.8rem;margin-top:4px}
+.field.bad .err{display:block}
+@media(min-width:620px){.fgrid{grid-template-columns:1fr 1fr}}
+/* signature step */
+.sigwrap{position:relative;height:190px;background:#fff;border:1.5px dashed #9fb0c8;border-bottom:3px solid var(--blue);border-radius:8px}
+.sigwrap canvas{display:block;width:100%;height:100%;touch-action:none;cursor:crosshair}
+.sighint{position:absolute;left:14px;top:10px;color:#a9b5c6;font-size:.82rem;pointer-events:none}
+.sigdate{margin-top:14px;font-size:.88rem;color:var(--muted)}
+.sigdate b{color:var(--navy);font-size:1rem;margin-left:6px}
+.sigbtns{display:flex;gap:10px}
+.sigerr{display:none;color:var(--accent);font-size:.82rem;margin-top:8px}
+footer{text-align:center;color:var(--muted);font-size:.78rem;padding:16px}
+
+@media(min-width:620px){
+  .scale{grid-template-columns:repeat(10,1fr);gap:8px}
+  .dot{width:48px;height:48px}
+}
+@media(max-width:420px){.logo{width:48px;height:48px;padding:6px;border-radius:10px}.topbar h1{font-size:1.08rem}.card{padding:20px 14px}.dot{width:46px;height:46px}}
 </style>
 </head>
-<body class="bg-surface text-on-surface antialiased min-h-screen pb-28">
-<header class="bg-white/90 backdrop-blur border-b border-outline sticky top-0 z-40">
-  <div class="max-w-container-max mx-auto px-4 py-3 flex items-center justify-between gap-3">
-    <div class="flex items-center gap-3 min-w-0">
-      <div class="w-11 h-11 rounded-xl overflow-hidden shrink-0 border border-outline bg-surface-muted">
-        <img class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/d/1LaYxfUQwET7eHDRvoxnzmP_-DYudIKji" alt="Logo"/>
-      </div>
-      <div class="min-w-0">
-        <h1 class="font-display font-bold text-[15px] leading-tight text-primary truncate">SAI SWARNA AUTOMOBILES PVT. LTD.</h1>
-        <p class="text-[11px] text-on-surface-variant truncate">Employment Application Form <span class="te-inline">· ఉద్యోగ దరఖాస్తు ఫారం</span></p>
-      </div>
-    </div>
-    <button id="draftBtn" type="button" class="shrink-0 flex items-center gap-1 text-[12px] font-semibold text-primary bg-primary-container px-3 py-2 rounded-full">
-      <span class="material-symbols-outlined !text-[16px]">save</span><span class="hidden sm:inline">Save draft <span class="te-inline">· సేవ్</span></span>
-    </button>
+<body>
+<div class="topbar"><div class="in">
+  <div class="logo"><img alt="Sai Swarna logo" src="data:image/png;base64,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"></div>
+  <div class="brand">
+    <h1>Sai Swarna Car Service Feedback</h1>
+    <p>Your instant feedback helps us serve you better</p>
   </div>
-  <div class="max-w-container-max mx-auto px-4 pb-3 overflow-x-auto flex gap-2" id="navChips">
-    <a href="#sec-personal" class="chip active" data-sec="sec-personal">1 · Personal <span class="te-inline">వ్యక్తిగతం</span></a>
-    <a href="#sec-family" class="chip" data-sec="sec-family">2 · Family <span class="te-inline">కుటుంబం</span></a>
-    <a href="#sec-education" class="chip" data-sec="sec-education">3 · Education <span class="te-inline">విద్య</span></a>
-    <a href="#sec-experience" class="chip" data-sec="sec-experience">4 · Experience <span class="te-inline">అనుభవం</span></a>
-    <a href="#sec-salary" class="chip" data-sec="sec-salary">5 · Salary <span class="te-inline">జీతం</span></a>
-    <a href="#sec-writeups" class="chip" data-sec="sec-writeups">6 · About You <span class="te-inline">మీ గురించి</span></a>
-    <a href="#sec-references" class="chip" data-sec="sec-references">7 · References <span class="te-inline">సూచనలు</span></a>
-    <a href="#sec-photo" class="chip" data-sec="sec-photo">8 · Photo &amp; ID <span class="te-inline">ఫోటో</span></a>
-    <a href="#sec-declare" class="chip" data-sec="sec-declare">9 · Submit <span class="te-inline">సమర్పణ</span></a>
-  </div>
-  <div class="h-1 w-full bg-surface-muted">
-    <div id="progressBar" class="h-full bg-gradient-to-r from-primary to-secondary transition-all duration-300" style="width:11%"></div>
-  </div>
-</header>
-<main class="max-w-container-max mx-auto px-4 py-5">
-<form id="appForm" class="space-y-5" autocomplete="on">
-  <section class="section-card p-5" id="sec-personal">
-    <div class="flex items-center gap-3 mb-2">
-      <div class="icon-badge"><span class="material-symbols-outlined">account_tree</span></div>
-      <div>
-        <h2 class="font-display font-bold text-lg">Application for the Post <span class="te-sub">దరఖాస్తు చేస్తున్న ఉద్యోగ పదవి</span></h2>
-        <p class="text-xs text-on-surface-variant">Select properly</p>
-      </div>
-    </div>
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-x-4 gap-y-3">
-      <div class="field"><label class="field-label" for="Division"><span class="req">Division</span><span class="te">శాఖ</span></label>
-        <select id="Division" name="Division" required><option value="">Select Division</option>
-          <option>H-PROMIS</option><option>SALES</option><option>SERVICE</option>
-        </select>
-      </div>
-      <div class="field"><label class="field-label" for="Department"><span class="req">Department</span><span class="te">విభాగం</span></label>
-        <select id="Department" name="Department" required><option value="">Select Department</option>
-          <option>SALES</option><option>EDP</option><option>CUSTOMERCARE</option><option>PDI</option><option>ACCESSORIES</option><option>INSURANCE</option><option>FINANCE</option><option>ACCOUNTS</option><option>HUMEN RESOURCE</option><option>AUDIT</option><option>SERVICE</option><option>BODYSHOP</option><option>HOUSE KEEPING</option>
-        </select>
-      </div>
-      <div class="field"><label class="field-label" for="postApplied"><span class="req">Designation Applied For</span><span class="te">దరఖాస్తు చేస్తున్న ఉద్యోగ హోదా</span></label>
-        <select id="postApplied" name="postApplied" required><option value="">Select Post</option>
-          <option>GENERAL MANAGER</option><option>Sr. GENERAL MANAGER</option><option>CHIEF GENERAL MANAGER</option><option>Asst. GENERAL MANAGER</option><option>DEPUTY GENERAL MANAGER</option><option>SR.MANAGER</option><option>Asst. MANAGER</option><option>DEPUTY MANAGE</option><option>MANAGER</option><option>Sr.EXECUTIVE</option><option>EXECUTIVE</option><option>Jr.EXECUTIVE</option><option>TEAM LEADER</option><option>SALES CONSULTANT</option><option>IN HOUSE TRAINER</option><option>CUSTOMER CARE MANAGER</option><option>CUSTOMER CARE EXECUTIVE</option><option>TELE CALLER</option><option>PDI INCARGE</option><option>DELEVERY COORDINATOR</option><option>DRIVER</option><option>SHOWROOM HOSTER</option><option>TECHNECIAN</option><option>VALUATOR</option><option>CASHIER</option><option>ACCOUNTANT</option><option>SERVICE MANAGER</option><option>Asst.SERVICE MANAGER</option><option>WARENTY MANAGER</option><option>FLOORE INCHARGE</option><option>SERVICE ADVISOR</option><option>CUSTOMERCARE MANAGER</option><option>BODYSHOP MANAGER</option><option>BODYSHOP ADVISOR</option><option>MASTER TECHNECIAN</option><option>Asst.TECHNECIAN</option><option>DENTAR</option><option>PAINTER</option><option>WHEEL ELIGNMENT TECHENCIAN</option><option>ELECTRECIAN</option><option>A C TEHNECIAN</option><option>SUPERVISOR</option><option>HELPER</option><option>WASHER</option><option>TECHNICAL ADVISOR</option><option>LOBBY</option>
-        </select>
-      </div>
-    </div>
-  </section>
-  <section class="section-card p-5" id="sec-personal-details">
-    <div class="flex items-center gap-3 mb-2">
-      <div class="icon-badge"><span class="material-symbols-outlined">badge</span></div>
-      <div>
-        <h2 class="font-display font-bold text-lg">Personal Details <span class="te-sub">వ్యక్తిగత వివరాలు</span></h2>
-        <p class="text-xs text-on-surface-variant">Tell us who you are</p>
-      </div>
-    </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-3">
-      <div class="field"><label class="field-label" for="fullName"><span class="req">Full Name</span><span class="te">పూర్తి పేరు</span></label><input id="fullName" name="fullName" required placeholder="As per Aadhar / ID proof"/></div>
-	  <div class="field"><label class="field-label" for="aadharCardNumber"><span class="req">Aadhar Card Number</span><span class="te">ఆధార్ కార్డు నంబర్</span></label><input id="aadharCardNumber" name="aadharCardNumber" type="text" inputmode="numeric" maxlength="12" pattern="[0-9]{12}" title="Enter exactly 12 digits" required placeholder="12-digit Aadhar number"/></div>
- 	  <div class="field"><label class="field-label" for="dob"><span class="req">Date of Birth</span><span class="te">జననo తేదీ</span></label><input id="dob" name="dob" type="date" required/></div>
-      <div class="field"><label class="field-label" for="age">Age (auto)<span class="te">వయస్సు (ఆటో)</span></label><input id="age" name="age" type="text" readonly class="bg-surface-muted"/></div>
-      <div class="field"><label class="field-label" for="mobile"><span class="req">Mobile Number</span><span class="te">మొబైల్ నంబర్</span></label><input id="mobile" name="mobile" type="tel" inputmode="numeric" maxlength="10" pattern="[0-9]{10}" title="Enter exactly 10 digits" required placeholder="10-digit mobile"/></div>
-      <div class="field"><label class="field-label" for="email">Email<span class="te">ఇమెయిల్</span></label><input id="email" name="email" type="email" placeholder="you@example.com"/></div>
-      <div class="field"><label class="field-label" for="caste">Caste / Category<span class="te">కులం / వర్గం</span></label><select id="caste" name="caste"><option value="">Select category</option><option>OC</option><option>BC</option><option>SC</option><option>ST</option><option>Other</option></select></div>
-      <div class="field"><label class="field-label" for="subCaste">Sub-Caste<span class="te">ఉప కులం</span></label><input id="subCaste" name="subCaste" placeholder="If applicable"/></div>
-      <div class="field"><label class="field-label" for="bloodGroup">Blood Group<span class="te">రక్త గ్రూప్</span></label><select id="bloodGroup" name="bloodGroup"><option value="">Select group</option><option>A+</option><option>A-</option><option>B+</option><option>B-</option><option>O+</option><option>O-</option><option>AB+</option><option>AB-</option></select></div>
-      <div class="field"><label class="field-label" for="maritalStatus">Marital Status<span class="te">వైవాహిక స్థితి</span></label><select id="maritalStatus" name="maritalStatus"><option value="">Select status</option><option>Single</option><option>Married</option><option>Divorced</option><option>Widowed</option></select></div>
-      <div class="field"><label class="field-label" for="fatherHusbandName">Father's / Husband's Name<span class="te">తండ్రి / భర్త పేరు</span></label><input id="fatherHusbandName" name="fatherHusbandName" placeholder="Full name"/></div>
-      <div class="field"><label class="field-label" for="fatherHusbandOcc">Father's / Husband's Occupation<span class="te">తండ్రి / భర్త వృత్తి</span></label><input id="fatherHusbandOcc" name="fatherHusbandOcc"/></div>
-	  <div class="field"><label class="field-label" for="panNumber">PAN Number<span class="te">పాన్ నంబర్</span></label><input id="panNumber" name="panNumber" maxlength="10" placeholder="ABCDE1234F" class="uppercase" style="text-transform:uppercase"/></div>
-	 <div class="sm:col-span-2 field"><label class="field-label" for="presentAddress"><span class="req">Present Address (Communication)</span><span class="te">ప్రస్తుత చిరునామా (సంప్రదింపు)</span></label><textarea id="presentAddress" name="presentAddress" rows="2" required placeholder="House no, street, village/town, mandal, district, pincode"></textarea></div>
-<div class="sm:col-span-2 flex items-center gap-2">
-        <input type="checkbox" id="sameAsPresent" class="w-4 h-4 rounded border-outline-strong text-primary"/>
-        <label for="sameAsPresent" class="text-sm text-on-surface-variant">Permanent address is same as present address <span class="te-inline">(శాశ్వత చిరునామా ప్రస్తుత చిరునామా వలెనే)</span></label>
-      </div>
-      <div class="sm:col-span-2 field"><label class="field-label" for="permanentAddress">Permanent Address<span class="te">శాశ్వత చిరునామా</span></label><textarea id="permanentAddress" name="permanentAddress" rows="2"></textarea></div>
+</div></div>
 
-			<div class="sm:col-span-2 pt-2 mt-1 border-t border-outline">
-        <p class="text-sm font-semibold text-on-surface">Bank Details <span class="te-inline">బ్యాంక్ వివరాలు</span></p>
-        <p class="text-xs text-on-surface-variant">Bank details are used for salary credit if selected</p>
+<div class="wrap">
+  <div class="card" id="surveyCard">
+    <div id="detailsSection" style="display:none">
+      <h2 class="dtitle">Customer Details</h2>
+      <p class="dsub">కస్టమర్ వివరాలు &bull; ग्राहक विवरण</p>
+      <div class="fgrid">
+        <div class="field" id="f_reg">
+          <label for="regNo">Registration Number <i>*</i></label>
+          <input id="regNo" type="text" placeholder="e.g. TS09AB1234" maxlength="13" autocomplete="off" style="text-transform:uppercase">
+          <div class="err">Enter a valid registration number</div>
+        </div>
+        <div class="field" id="f_model">
+          <label for="model">Model <i>*</i></label>
+          <select id="model"></select>
+          <div class="err">Please select the vehicle model</div>
+        </div>
+        <div class="field" id="f_contact">
+          <label for="contact">Contact Number <i>*</i></label>
+          <input id="contact" type="tel" inputmode="numeric" placeholder="10-digit mobile number" maxlength="10">
+          <div class="err" id="contactErr">Enter a valid 10-digit mobile number</div>
+        </div>
+        <div class="field" id="f_loc">
+          <label for="location">Visited Location <i>*</i></label>
+          <select id="location"></select>
+          <div class="err">Please select the visited location</div>
+        </div>
       </div>
-	  <div class="field"><label class="field-label" for="bankName">Name of the Bank<span class="te">బ్యాంక్ పేరు</span></label><input id="bankName" name="bankName" placeholder="e.g. State Bank of India"/></div>
-      <div class="field"><label class="field-label" for="bankAccountNumber">Bank A/c Number<span class="te">బ్యాంక్ ఖాతా నంబర్</span></label><input id="bankAccountNumber" name="bankAccountNumber" inputmode="numeric" placeholder="Account number"/></div>
-      <div class="field"><label class="field-label" for="ifscCode">IFSC Code<span class="te">IFSC కోడ్</span></label><input id="ifscCode" name="ifscCode" maxlength="11" placeholder="e.g. SBIN0001234" style="text-transform:uppercase"/></div>
-      <div class="field"><label class="field-label" for="branchName">Name of the Branch<span class="te">బ్రాంచ్ పేరు</span></label><input id="branchName" name="branchName" placeholder="Branch name"/></div>     
-
-      
-      
-    </div>
-  </section>
-  <section class="section-card p-5" id="sec-family">
-    <div class="flex items-center justify-between mb-4">
-      <div class="flex items-center gap-3">
-        <div class="icon-badge"><span class="material-symbols-outlined">family_restroom</span></div>
-        <div><h2 class="font-display font-bold text-lg">Family Details <span class="te-sub">కుటుంబ వివరాలు</span></h2><p class="text-xs text-on-surface-variant">Members currently dependent on / living with you</p></div>
+      <div class="nav">
+        <span></span>
+        <button class="btn primary" onclick="startSurvey()">Start Survey &rarr;</button>
       </div>
-    </div>
-    <div class="table-wrap">
-      <table class="w-full text-left border-collapse min-w-[1080px]" id="familyTable">
-        <thead><tr class="text-xs text-on-surface-variant border-b border-outline">
-          <th class="py-2 pr-2 font-semibold min-w-[220px]">Name of the Relative<span class="te-inline block">పేరు</span></th>
-          <th class="py-2 pr-2 font-semibold">Gender<span class="te-inline block">లింగం</span></th>
-          <th class="py-2 pr-2 font-semibold">Relationship<span class="te-inline block">సంబంధం</span></th>
-          <th class="py-2 pr-2 font-semibold">Date of Birth<span class="te-inline block">జననo తేదీ</span></th>
-          <th class="py-2 pr-2 font-semibold">Age<span class="te-inline block">వయస్సు</span></th>
-          <th class="py-2 pr-2 font-semibold">Contact Number<span class="te-inline block">సంప్రదింపు నంబర్</span></th>
-          <th class="py-2 pr-2 font-semibold">Aadhar Number<span class="te-inline block">ఆధార్ నంబర్</span></th>
-          <th class="py-2 pr-2 font-semibold">Occupation<span class="te-inline block">వృత్తి</span></th>
-          <th class="w-8"></th>
-        </tr></thead>
-        <tbody id="familyBody"></tbody>
-      </table>
-    </div>
-    <button type="button" class="row-btn mt-3" data-add="family"><span class="material-symbols-outlined !text-[16px]">add</span>Add family member <span class="te-inline">సభ్యుడిని జోడించండి</span></button>
-  </section>
-
-  <!-- 3. Education -->
-  <section class="section-card p-5" id="sec-education">
-    <div class="flex items-center gap-3 mb-4">
-      <div class="icon-badge"><span class="material-symbols-outlined">school</span></div>
-      <div><h2 class="font-display font-bold text-lg">Educational Qualifications <span class="te-sub">విద్యార్హతలు</span></h2><p class="text-xs text-on-surface-variant">SSC, Intermediate, Degree, Diploma etc.</p></div>
-    </div>
-    <div class="table-wrap">
-      <table class="w-full text-left border-collapse min-w-[720px]" id="eduTable">
-        <thead><tr class="text-xs text-on-surface-variant border-b border-outline">
-          <th class="py-2 pr-2 font-semibold">Institution / Board<span class="te-inline block">సంస్థ / బోర్డు</span></th><th class="py-2 pr-2 font-semibold">SSC/Inter/Degree/Diploma<span class="te-inline block">విద్యార్హత</span></th><th class="py-2 pr-2 font-semibold">Passing Year<span class="te-inline block">ఉత్తీర్ణత సంవత్సరం</span></th><th class="py-2 pr-2 font-semibold">Group/Branch/Trade<span class="te-inline block">గ్రూప్/బ్రాంచ్</span></th><th class="py-2 pr-2 font-semibold">Class/Grade<span class="te-inline block">తరగతి/గ్రేడ్</span></th><th class="w-8"></th>
-        </tr></thead>
-        <tbody id="eduBody"></tbody>
-      </table>
-    </div>
-    <button type="button" class="row-btn mt-3" data-add="edu"><span class="material-symbols-outlined !text-[16px]">add</span>Add qualification <span class="te-inline">అర్హతను జోడించండి</span></button>
-  </section>
-
-  <!-- 4. Experience -->
-  <section class="section-card p-5" id="sec-experience">
-    <div class="flex items-center gap-3 mb-4">
-      <div class="icon-badge"><span class="material-symbols-outlined">work_history</span></div>
-      <div><h2 class="font-display font-bold text-lg">Employment History <span class="te-sub">ఉద్యోగ చరిత్ర</span></h2><p class="text-xs text-on-surface-variant">Last employer(s), most recent first</p></div>
-    </div>
-    <div class="table-wrap">
-      <table class="w-full text-left border-collapse min-w-[1680px]" id="empTable">
-        <thead><tr class="text-xs text-on-surface-variant border-b border-outline">
-          <th class="py-2 pr-2 font-semibold min-w-[440px]">Company Name &amp; Present Working Address<span class="te-inline block">కంపెనీ పేరు &amp; చిరునామా</span></th><th class="py-2 pr-2 font-semibold min-w-[140px]">Date Joining<span class="te-inline block">చేరిన తేదీ</span></th><th class="py-2 pr-2 font-semibold min-w-[140px]">Date Leaving<span class="te-inline block">వదిలిన తేదీ</span></th><th class="py-2 pr-2 font-semibold min-w-[150px]">Period Worked<span class="te-inline block">పనిచేసిన కాలం</span></th><th class="py-2 pr-2 font-semibold min-w-[190px]">Designation<span class="te-inline block">పదవి</span></th><th class="py-2 pr-2 font-semibold min-w-[190px]">Name of your HOD<span class="te-inline block">మీ HOD పేరు</span></th><th class="py-2 pr-2 font-semibold min-w-[160px]">Contact Number<span class="te-inline block">సంప్రదింపు నంబర్</span></th><th class="py-2 pr-2 font-semibold min-w-[170px]">Emolument at Start<span class="te-inline block">ప్రారంభ వేతనం</span></th><th class="py-2 pr-2 font-semibold min-w-[170px]">Emolument at Leaving<span class="te-inline block">చివరి వేతనం</span></th><th class="py-2 pr-2 font-semibold min-w-[190px]">Reason for Leaving<span class="te-inline block">వదిలేందుకు కారణం</span></th><th class="w-8"></th>
-        </tr></thead>
-        <tbody id="empBody"></tbody>
-      </table>
-    </div>
-    <button type="button" class="row-btn mt-3" data-add="emp"><span class="material-symbols-outlined !text-[16px]">add</span>Add employer <span class="te-inline">యజమానిని జోడించండి</span></button>
-  </section>
-
-  <!-- 5. Salary Details -->
-  <section class="section-card p-5" id="sec-salary">
-    <div class="flex items-center gap-3 mb-4">
-      <div class="icon-badge"><span class="material-symbols-outlined">payments</span></div>
-      <div><h2 class="font-display font-bold text-lg">Details of Last Drawn Salary <span class="te-sub">చివరిగా తీసుకున్న జీతం వివరాలు</span></h2><p class="text-xs text-on-surface-variant">Per month figures — yearly is calculated automatically</p></div>
-    </div>
-    <div class="table-wrap">
-      <table class="w-full text-left border-collapse min-w-[420px]" id="salaryTable">
-        <thead><tr class="text-xs text-on-surface-variant border-b border-outline">
-          <th class="py-2 pr-2 font-semibold">Component<span class="te-inline block">అంశం</span></th><th class="py-2 pr-2 font-semibold w-32">Per Month (₹)<span class="te-inline block">నెలకు</span></th><th class="py-2 pr-2 font-semibold w-32">Per Annum (₹)<span class="te-inline block">సంవత్సరానికి</span></th>
-        </tr></thead>
-        <tbody id="salaryBody"></tbody>
-        <tfoot>
-          <tr class="border-t-2 border-outline-strong font-bold">
-            <td class="py-2 pr-2">Total <span class="te-inline">మొత్తం</span></td>
-            <td class="py-2 pr-2"><input id="salaryTotalMonth" readonly class="bg-surface-muted font-bold"/></td>
-            <td class="py-2 pr-2"><input id="salaryTotalAnnum" readonly class="bg-surface-muted font-bold"/></td>
-          </tr>
-        </tfoot>
-      </table>
-    </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-3 mt-4">
-      <div class="field"><label class="field-label" for="pfUan">PF UAN Number (if any)<span class="te">PF UAN నంబర్ (ఉంటే)</span></label><input id="pfUan" name="pfUan"/></div>
-      <div class="field"><label class="field-label" for="esiIp">ESI IP (Insured Person) Number (if any)<span class="te">ESI IP నంబర్ (ఉంటే)</span></label><input id="esiIp" name="esiIp"/></div>
-    </div>
-  </section>
-
-  <!-- 6. Write-ups -->
-  <section class="section-card p-5" id="sec-writeups">
-    <div class="flex items-center gap-3 mb-4">
-      <div class="icon-badge"><span class="material-symbols-outlined">edit_note</span></div>
-      <div><h2 class="font-display font-bold text-lg">About You <span class="te-sub">మీ గురించి</span></h2><p class="text-xs text-on-surface-variant">Answer briefly, in your own words</p></div>
-    </div>
-    <div class="space-y-4">
-      <div class="field"><label class="field-label" for="q1">Briefly describe your previous job responsibilities<span class="te">మీ మునుపటి ఉద్యోగ బాధ్యతలను క్లుప్తంగా వివరించండి</span></label><textarea id="q1" name="q1" rows="3"></textarea></div>
-      <div class="field"><label class="field-label" for="q2">What do you consider your most significant achievement?<span class="te">మీరు సాధించిన అత్యంత ముఖ్యమైన విజయం ఏమిటి?</span></label><textarea id="q2" name="q2" rows="3"></textarea></div>
-      <div class="field"><label class="field-label" for="hobbies">Extra-curricular activities / Hobbies<span class="te">అదనపు కార్యకలాపాలు / అభిరుచులు</span></label><textarea id="hobbies" name="hobbies" rows="2"></textarea></div>
-      <div class="field"><label class="field-label" for="careerPlan">Career plan, goals &amp; ambitions<span class="te">వృత్తి ప్రణాళిక, లక్ష్యాలు &amp; ఆశయాలు</span></label><textarea id="careerPlan" name="careerPlan" rows="3"></textarea></div>
-    </div>
-  </section>
-
-  <!-- 7. References -->
-  <section class="section-card p-5" id="sec-references">
-    <div class="flex items-center gap-3 mb-4">
-      <div class="icon-badge"><span class="material-symbols-outlined">contacts</span></div>
-      <div><h2 class="font-display font-bold text-lg">References <span class="te-sub">సూచనలు (రిఫరెన్సులు)</span></h2><p class="text-xs text-on-surface-variant">Two references, other than relatives, for background verification — <span class="text-error font-semibold">both references are mandatory</span></p></div>
-    </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-3">
-      <div class="p-4 rounded-xl bg-surface-muted space-y-3">
-        <p class="text-xs font-bold text-on-surface-variant uppercase tracking-wide">Reference 1</p>
-        <div class="field"><label class="field-label" for="ref1Name"><span class="req">Name</span><span class="te">పేరు</span></label><input id="ref1Name" name="ref1Name" required/></div>
-        <div class="field"><label class="field-label" for="ref1Address"><span class="req">Present Working Company & Address</span><span class="te">ప్రస్తుతం పనిచేస్తున్న సంస్థ & చిరునామా</span></label><textarea id="ref1Address" name="ref1Address" rows="2" required></textarea></div>
-        <div class="field"><label class="field-label" for="ref1Occ"><span class="req">Occupation</span><span class="te">వృత్తి</span></label><input id="ref1Occ" name="ref1Occ" required/></div>
-        <div class="field"><label class="field-label" for="ref1Mobile"><span class="req">Mobile No.</span><span class="te">మొబైల్ నంబర్</span></label><input id="ref1Mobile" name="ref1Mobile" type="tel" inputmode="numeric" maxlength="10" pattern="[0-9]{10}" title="Enter exactly 10 digits" required/></div>
-      </div>
-      <div class="p-4 rounded-xl bg-surface-muted space-y-3">
-        <p class="text-xs font-bold text-on-surface-variant uppercase tracking-wide">Reference 2</p>
-        <div class="field"><label class="field-label" for="ref2Name"><span class="req">Name</span><span class="te">పేరు</span></label><input id="ref2Name" name="ref2Name" required/></div>
-        <div class="field"><label class="field-label" for="ref2Address"><span class="req">Present Working Company & Address</span><span class="te">ప్రస్తుతం పనిచేస్తున్న సంస్థ & చిరునామా</span></label><textarea id="ref2Address" name="ref2Address" rows="2" required></textarea></div>
-        <div class="field"><label class="field-label" for="ref2Occ"><span class="req">Occupation</span><span class="te">వృత్తి</span></label><input id="ref2Occ" name="ref2Occ" required/></div>
-        <div class="field"><label class="field-label" for="ref2Mobile"><span class="req">Mobile No.</span><span class="te">మొబైల్ నంబర్</span></label><input id="ref2Mobile" name="ref2Mobile" type="tel" inputmode="numeric" maxlength="10" pattern="[0-9]{10}" title="Enter exactly 10 digits" required/></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- 8. Photo & ID -->
-  <section class="section-card p-5" id="sec-photo">
-    <div class="flex items-center gap-3 mb-4">
-      <div class="icon-badge"><span class="material-symbols-outlined">photo_camera</span></div>
-      <div><h2 class="font-display font-bold text-lg">Photo &amp; Documents <span class="te-sub">ఫోటో &amp; పత్రాలు</span></h2><p class="text-xs text-on-surface-variant"><span class="req">Passport-style photo is mandatory</span> — compressed automatically to under 1 MB before upload</p></div>
     </div>
 
-    <div class="flex flex-col items-center gap-3">
-      <div id="photoPreviewWrap" class="w-36 h-36 rounded-2xl bg-surface-muted border-2 border-dashed border-outline-strong flex items-center justify-center overflow-hidden">
-        <span class="material-symbols-outlined !text-[40px] text-outline-strong" id="photoPlaceholderIcon">person</span>
-        <img id="photoPreview" class="w-full h-full object-cover hidden" alt="Applicant photo preview"/>
+    <div id="questionSection" style="display:none">
+      <div class="meta"><span>Question <span id="cur">1</span> of <span id="total">9</span></span><span id="pct">0%</span></div>
+      <div class="bar"><div class="fill" id="fill"></div></div>
+      <div class="q" id="qText"></div>
+      <div id="answerArea"></div>
+      <div class="nav">
+        <button class="btn" id="backBtn" onclick="goBack()">&larr; Back</button>
+        <span></span>
       </div>
-      <div class="flex gap-2 flex-wrap justify-center">
-        <label class="row-btn cursor-pointer !border-solid">
-          <span class="material-symbols-outlined !text-[16px]">photo_camera</span>Take photo <span class="te-inline">ఫోటో తీయండి</span>
-          <input type="file" accept="image/*" capture="user" id="photoCapture" class="hidden"/>
-        </label>
-        <label class="row-btn cursor-pointer !border-solid">
-          <span class="material-symbols-outlined !text-[16px]">upload</span>Upload from gallery <span class="te-inline">గ్యాలరీ నుండి</span>
-          <input type="file" accept="image/*" id="photoUpload" class="hidden"/>
-        </label>
-        <button type="button" id="photoClear" class="row-btn icon-btn-remove hidden !border-solid">
-          <span class="material-symbols-outlined !text-[16px]">delete</span>Remove <span class="te-inline">తీసివేయండి</span>
-        </button>
-      </div>
-      <p id="photoStatus" class="text-xs text-on-surface-variant text-center"></p>
     </div>
 
-    <div class="mt-5">
-      <p class="field-label mb-2">Documents you will bring / have ready (tick to confirm) <span class="te-inline block">(మీరు తీసుకువచ్చే / సిద్ధంగా ఉన్న పత్రాలు)</span></p>
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm">
-	  <label class="flex items-center gap-2"><input type="checkbox" name="doc_adc" class="w-4 h-4 rounded border-outline-strong text-primary"/>Aadhar Card Number <span class="te-inline">ఆధార్ కార్డు</span></label>
-	  <label class="flex items-center gap-2"><input type="checkbox" name="doc_pan" class="w-4 h-4 rounded border-outline-strong text-primary"/>PAN Card Number <span class="te-inline">పాన్ కార్డు</span></label>
-        
-        <label class="flex items-center gap-2"><input type="checkbox" name="doc_dob" class="w-4 h-4 rounded border-outline-strong text-primary"/>Proof of Date of Birth <span class="te-inline">(పుట్టిన తేదీ రుజువు)</span></label>
-        <label class="flex items-center gap-2"><input type="checkbox" name="doc_residence" class="w-4 h-4 rounded border-outline-strong text-primary"/>Proof of Residence <span class="te-inline">(నివాస రుజువు)</span></label>
-        <label class="flex items-center gap-2"><input type="checkbox" name="doc_edu" class="w-4 h-4 rounded border-outline-strong text-primary"/>Educational Certificates <span class="te-inline">(విద్యా ధృవపత్రాలు)</span></label>
-        <label class="flex items-center gap-2"><input type="checkbox" name="doc_dl" class="w-4 h-4 rounded border-outline-strong text-primary"/>Driving License <span class="te-inline">(డ్రైవింగ్ లైసెన్స్ కాపీ)</span></label>
-        <label class="flex items-center gap-2 sm:col-span-2"><input type="checkbox" name="doc_exp" class="w-4 h-4 rounded border-outline-strong text-primary"/>Experience / Performance Certificates from previous employer(s) <span class="te-inline">(అనుభవ ధృవపత్రాలు)</span></label>
+    <div id="signSection" style="display:none">
+      <div class="meta"><span>Final Step</span><span>100%</span></div>
+      <div class="bar"><div class="fill" style="width:100%"></div></div>
+      <h2 class="dtitle">Customer Signature</h2>
+      <p class="dsub">కస్టమర్ సంతకం &bull; ग्राहक हस्ताक्षर &mdash; please sign inside the box</p>
+      <div class="sigwrap">
+        <canvas id="sigPad"></canvas>
+        <span class="sighint" id="sigHint">Sign here</span>
+      </div>
+      <div class="sigerr" id="sigErr">Please sign in the box before submitting</div>
+      <div class="sigdate">Confirm Date:<b id="signDate"></b></div>
+      <div class="nav">
+        <button class="btn" onclick="signBack()">&larr; Back</button>
+        <div class="sigbtns">
+          <button class="btn" onclick="clearSig()">Clear</button>
+          <button class="btn primary" id="submitBtn" onclick="submitForm()">Submit</button>
+        </div>
       </div>
     </div>
-  </section>
 
-  <!-- 9. Declaration -->
-  <section class="section-card p-5" id="sec-declare">
-    <div class="flex items-center gap-3 mb-4">
-      <div class="icon-badge"><span class="material-symbols-outlined">verified</span></div>
-      <div><h2 class="font-display font-bold text-lg">Declaration &amp; Submit <span class="te-sub">ప్రకటన &amp; సమర్పణ</span></h2></div>
+    <div class="done" id="completionScreen" style="display:none">
+      <div class="tick">&#10003;</div>
+      <h2>Thank You for Your Feedback!</h2>
+      <p>మీ అభిప్రాయానికి ధన్యవాదాలు &bull; आपकी प्रतिक्रिया के लिए धन्यवाद</p>
+      <p>Your responses have been recorded and sent to our team.</p>
+      <button class="btn primary" style="margin-top:18px" onclick="restartSurvey()">Take Survey Again</button>
     </div>
-    <label class="flex items-start gap-3 cursor-pointer mb-4">
-      <input type="checkbox" id="declaration" name="declaration" required class="w-5 h-5 mt-0.5 rounded border-outline-strong text-primary"/>
-      <span class="text-sm text-on-surface-variant">I hereby declare that all the information provided above is true and correct to the best of my knowledge. I understand that any false information may lead to the cancellation of my application.<span class="te block mt-1">నేను పైన అందించిన మొత్తం సమాచారం నా అవగాహన మేరకు నిజం మరియు సరైనదిగా ప్రకటిస్తున్నాను. తప్పుడు సమాచారం ఇస్తే నా దరఖాస్తు రద్దు కావచ్చని అర్థం చేసుకున్నాను.</span></span>
-    </label>
-    <div class="mb-5 field">
-      <label class="field-label"><span class="req">Signature</span><span class="te">సంతకం</span></label>
-      <p class="text-xs text-on-surface-variant mb-2">Draw your signature below, or upload / take a photo of your signature — compressed automatically to under 500 KB. <span class="te-inline block">సంతకం చేయండి లేదా ఫోటో అప్‌లోడ్ చేయండి</span></p>
-      <div id="sigPadWrap" class="rounded-2xl border-2 border-dashed border-outline-strong bg-white overflow-hidden relative">
-        <canvas id="sigCanvas" class="w-full h-40 touch-none cursor-crosshair block"></canvas>
-        <img id="sigPreview" class="w-full h-40 object-contain bg-white hidden" alt="Signature preview"/>
-        <span id="sigPlaceholder" class="absolute inset-0 flex items-center justify-center text-xs text-on-surface-variant pointer-events-none">Sign here with mouse / finger <span class="te-inline">· ఇక్కడ సంతకం చేయండి</span></span>
-      </div>
-      <div class="flex gap-2 flex-wrap justify-center mt-3">
-        <button type="button" id="sigClearPad" class="row-btn !border-solid"><span class="material-symbols-outlined !text-[16px]">ink_eraser</span>Clear <span class="te-inline">తుడిచివేయండి</span></button>
-        <label class="row-btn cursor-pointer !border-solid">
-          <span class="material-symbols-outlined !text-[16px]">photo_camera</span>Photo of signature <span class="te-inline">ఫోటో</span>
-          <input type="file" accept="image/*" capture="environment" id="sigCapture" class="hidden"/>
-        </label>
-        <label class="row-btn cursor-pointer !border-solid">
-          <span class="material-symbols-outlined !text-[16px]">upload</span>Upload signature <span class="te-inline">అప్‌లోడ్</span>
-          <input type="file" accept="image/*" id="sigUpload" class="hidden"/>
-        </label>
-        <button type="button" id="sigRemove" class="row-btn icon-btn-remove hidden !border-solid"><span class="material-symbols-outlined !text-[16px]">delete</span>Remove <span class="te-inline">తీసివేయండి</span></button>
-      </div>
-      <p id="sigStatus" class="text-xs text-on-surface-variant text-center mt-1"></p>
-    </div>
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-3">
-      <div class="field"><label class="field-label" for="place"><span class="req">Place</span><span class="te">స్థలం</span></label><input id="place" name="place" required/></div>
-      <div class="field"><label class="field-label" for="applyDate">Date<span class="te">తేదీ</span></label><input id="applyDate" name="applyDate" type="date" readonly class="bg-surface-muted"/></div>
-    </div>
-  </section>
-
-</form>
-</main>
-
-<!-- Sticky bottom action bar -->
-<div id="bottomBar" class="fixed bottom-0 left-0 right-0 z-40 bg-white/95 backdrop-blur border-t border-outline">
-  <div class="max-w-container-max mx-auto px-4 py-3 flex items-center gap-3">
-    <div class="hidden sm:block text-xs text-on-surface-variant flex-1" id="statusHint">Fill in the sections above, then submit.</div>
-    <button id="submitBtn" type="button" class="ml-auto flex-1 sm:flex-none flex items-center justify-center gap-2 bg-primary hover:bg-primary-dark text-white font-semibold text-sm py-3 px-6 rounded-full shadow-pop transition-all active:scale-95">
-      <span class="material-symbols-outlined !text-[18px]">send</span>Submit Application <span class="te-inline">సమర్పించండి</span>
-    </button>
   </div>
 </div>
-
-<div id="toast" class="toast"><div class="bg-on-surface text-white text-sm px-4 py-3 rounded-xl shadow-pop flex items-center gap-2"><span class="material-symbols-outlined !text-[18px]" id="toastIcon">check_circle</span><span id="toastMsg">Saved</span></div></div>
-
-<!-- DevTools / inspection guard -->
-<div id="devtoolsGuard">
-  <div>
-    <span class="material-symbols-outlined !text-[40px] text-outline-strong">visibility_off</span>
-    <p class="font-display font-bold text-base mt-2">This view is restricted</p>
-    <p class="text-sm text-on-surface-variant mt-1">Please close developer tools to continue using this form.</p>
-  </div>
-</div>
-
-<!-- Submitting overlay -->
-<div id="submitOverlay" class="fixed inset-0 bg-black/40 z-50 hidden items-center justify-center">
-  <div class="bg-white rounded-2xl p-6 max-w-xs w-full text-center shadow-pop">
-    <div class="w-10 h-10 border-4 border-primary-container border-t-primary rounded-full animate-spin mx-auto mb-3"></div>
-    <p class="font-semibold text-sm" id="overlayText">Submitting your application…</p>
-    <p class="text-xs text-on-surface-variant mt-1">Please don't close this page</p>
-  </div>
-</div>
+<footer>&copy; Sai Swarna Autoworld &bull; Customer Care</footer>
 
 <script>
-const APPS_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzQ0zivGherWO2-WNA4VIjO9FuUVH2vjHMqD3EIXUD1SmJIqri7xmap47hVlPDiqD-L/exec";
+// ========== CONFIG ==========
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycby9-e_UDtx_i1eY3WnXvLsS3xPJA2TaKtjr4QQZ8RS3WMSvzwEDv61RMp7jgg8KCl6I/exec";
 
-/* ---------------------------- Small helpers ---------------------------- */
-const $ = (sel, ctx = document) => ctx.querySelector(sel);
-const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
-const uid = () => Math.random().toString(36).slice(2, 9);
+// Model dropdown options - EDIT as needed
+const MODELS = ["Grand i10 NIOS","i20","i20 N Line","Aura","Verna","EXTER","Venue","Venue N Line",
+  "Creta","Creta N Line","Alcazar","Creta Electric","IONIQ 5","Other"];
 
-function toast(msg, type = "success") {
-  const t = $("#toast"), icon = $("#toastIcon");
-  $("#toastMsg").textContent = msg;
-  icon.textContent = type === "success" ? "check_circle" : (type === "error" ? "error" : "info");
-  t.classList.add("show");
-  clearTimeout(toast._t);
-  toast._t = setTimeout(() => t.classList.remove("show"), 3200);
-}
+// Visited Location dropdown options - EDIT to your real branches
+const LOCATIONS = ["Location 1","Location 2","Location 3","Location 4"];
 
-/* ---------------------------- Section nav / progress ---------------------------- */
-const sections = ["sec-personal","sec-family","sec-education","sec-experience","sec-salary","sec-writeups","sec-references","sec-photo","sec-declare"];
-const chips = $$("#navChips a");
+// Scale labels shown under the 1-10 circles [telugu, hindi, english]
+const LOW  = ["చాలా తక్కువ","बहुत कम","Very Poor"];
+const HIGH = ["అద్భుతం","उत्कृष्ट","Excellent"];
 
-function updateActiveChip() {
-  let current = sections[0];
-  for (const id of sections) {
-    const el = document.getElementById(id);
-    if (el && el.getBoundingClientRect().top - 140 <= 0) current = id;
-  }
-  chips.forEach(c => c.classList.toggle("active", c.dataset.sec === current));
-  const idx = sections.indexOf(current);
-  $("#progressBar").style.width = Math.max(11, ((idx + 1) / sections.length) * 100) + "%";
-}
-document.addEventListener("scroll", () => requestAnimationFrame(updateActiveChip), { passive: true });
-updateActiveChip();
+// type: "scale" -> circles 1..10  |  type: "choice" -> exactly 3 options
+const surveyData = [
+  { type:"choice",
+    question:["మీరు వర్క్‌షాప్‌కు వచ్చినప్పుడు మీకు వెంటనే సేవ అందించారా?","जब आप वर्कशॉप आए तो क्या आपको तुरंत अटेंड किया गया?","Were you attended promptly when you came to the workshop?"],
+    options:[["అవును","हाँ","Yes"],["కాదు","नहीं","No"]] },
+  { type:"choice",
+    question:["సర్వీస్ అడ్వైజర్ చెప్పిన తేదీ నాటికి మీ కారు సిద్ధంగా ఉందా?","क्या आपकी गाड़ी सर्विस एडवाइज़र द्वारा बताई गई तारीख पर तैयार थी?","Was your car ready on the date promised by the service advisor?"],
+    options:[["అవును","हाँ","Yes"],["కాదు","नहीं","No"]] },
+  { type:"scale",
+    question:["వర్క్‌షాప్ మొత్తం పరిశుభ్రతను మీరు ఎలా రేట్ చేస్తారు?","वर्कशॉप की कुल सफाई को आप कैसे रेट करेंगे?","How do you rate the overall cleanliness of the workshop?"] },
+  { type:"scale",
+    question:["వెయిటింగ్ ఏరియా సౌకర్యవంతంగా ఉందా?","क्या वेटिंग एरिया आरामदायक था?","Was the waiting area comfortable?"],
+    low:["అసౌకర్యం","असुविधाजनक","Not comfortable"],
+    high:["చాలా సౌకర్యం","बहुत आरामदायक","Very comfortable"] },
+  { type:"scale",
+    question:["వర్క్‌షాప్‌కు వచ్చినప్పుడు మీ వాహనాన్ని పార్క్ చేయడం ఎంత సౌకర్యంగా ఉంది?","वर्कशॉप आने पर अपनी गाड़ी पार्क करना कितना सुविधाजनक था?","How convenient was it to park your vehicle when you came to the workshop?"],
+    low:["అసౌకర్యం","असुविधाजनक","Not convenient"],
+    high:["చాలా సౌకర్యం","बहुत सुविधाजनक","Very convenient"] },
+  { type:"scale",
+    question:["మీ కారు వాషింగ్ & క్లీనింగ్ నాణ్యతను ఎలా రేట్ చేస్తారు?","आपकी गाड़ी की धुलाई और सफाई की गुणवत्ता को आप कैसे रेट करेंगे?","How do you rate the quality of the washing and cleaning of your car?"] },
+  { type:"choice",
+    question:["సర్వీస్ & రిపేర్ ఛార్జీలు…","सर्विस और रिपेयर के चार्जेस…","Are the charges of services & repair…"],
+    options:[
+      ["ఇచ్చిన అంచనా కంటే ఎక్కువ","दिए गए अनुमान से अधिक","More than estimate provided"],
+      ["ఇచ్చిన అంచనా ప్రకారమే","दिए गए अनुमान के अनुसार","As per estimate provided"],
+      ["అంచనా ఇవ్వలేదు","कोई अनुमान नहीं दिया गया","No estimate provided"]] },
+  { type:"scale",
+    question:["చేసిన పని గురించి సర్వీస్ అడ్వైజర్ ఇచ్చిన వివరణను ఎలా రేట్ చేస్తారు?","आपकी गाड़ी पर किए गए काम के बारे में सर्विस एडवाइज़र की व्याख्या को आप कैसे रेट करेंगे?","How do you rate the explanation given by the service advisor for work done on your car?"] },
+  { type:"scale",
+    question:["ఈ సందర్శనలో వర్క్‌షాప్‌తో మీ మొత్తం అనుభవాన్ని ఎలా రేట్ చేస్తారు?","इस विज़िट में वर्कशॉप के साथ आपकी कुल बातचीत और अनुभव को आप कैसे रेट करेंगे?","How do you rate your overall interaction & experience with the workshop during this visit?"] }
+];
+// ========== END CONFIG ==========
 
-/* ---------------------------- Age auto-calc ---------------------------- */
-$("#dob").addEventListener("change", (e) => {
-  const d = new Date(e.target.value);
-  if (isNaN(d)) return;
-  const diff = new Date(Date.now() - d.getTime());
-  $("#age").value = Math.abs(diff.getUTCFullYear() - 1970) + " years";
-});
+let idx = 0, answers = [], busy = false, details = {};
+const $ = id => document.getElementById(id);
 
-/* ---------------------------- Same-as-present address ---------------------------- */
-$("#sameAsPresent").addEventListener("change", (e) => {
-  const perm = $("#permanentAddress");
-  if (e.target.checked) {
-    perm.value = $("#presentAddress").value;
-    perm.readOnly = true;
-    perm.classList.add("bg-surface-muted");
+function showQuestion(i){
+  busy = false;
+  const q = surveyData[i];
+  $('total').textContent = surveyData.length;
+  $('cur').textContent = i + 1;
+  const pct = Math.round(i / surveyData.length * 100);
+  $('fill').style.width = pct + '%';
+  $('pct').textContent = pct + '%';
+  $('qText').innerHTML =
+    `<span class="te">${q.question[0]}</span><span class="hi">${q.question[1]}</span><span class="en">${q.question[2]}</span>`;
+
+  const area = $('answerArea');
+  area.innerHTML = '';
+  const prev = answers[i];
+
+  if (q.type === 'scale') {
+    const grid = document.createElement('div');
+    grid.className = 'scale';
+    for (let n = 1; n <= 10; n++) {
+      const b = document.createElement('button');
+      b.className = 'dot' + (String(prev) === String(n) ? ' sel' : '');
+      b.textContent = n;
+      b.setAttribute('aria-label', 'Rate ' + n + ' out of 10');
+      b.onclick = () => choose(b, String(n));
+      grid.appendChild(b);
+    }
+    area.appendChild(grid);
+    const lo = q.low || LOW, hi = q.high || HIGH;
+    const ends = document.createElement('div');
+    ends.className = 'ends';
+    ends.innerHTML = `<div>1 – ${lo[0]}<br>${lo[1]}<br>${lo[2]}</div><div>10 – ${hi[0]}<br>${hi[1]}<br>${hi[2]}</div>`;
+    area.appendChild(ends);
   } else {
-    perm.readOnly = false;
-    perm.classList.remove("bg-surface-muted");
-  }
-});
-$("#presentAddress").addEventListener("input", (e) => {
-  if ($("#sameAsPresent").checked) $("#permanentAddress").value = e.target.value;
-});
-
-/* ---------------------------- Numeric-only enforcement ----------------------------
-   Aadhaar fields: digits only, capped at 12.
-   Mobile / Contact fields: digits only, capped at 10.
-   Applies live (as the user types/pastes) and also covers dynamically-added
-   rows (family / employment) via event delegation on the whole form. */
-function digitsOnly(value, maxLen) {
-  return value.replace(/[^0-9]/g, "").slice(0, maxLen);
-}
-function isAadharField(name) {
-  return /^(aadharCardNumber|fam_aadhar_)/.test(name);
-}
-function isMobileField(name) {
-  return /^(mobile|ref1Mobile|ref2Mobile|fam_contact_|emp_hodcontact_)/.test(name);
-}
-$("#appForm").addEventListener("input", (e) => {
-  const el = e.target;
-  if (!el.name) return;
-  if (isAadharField(el.name)) {
-    el.value = digitsOnly(el.value, 12);
-  } else if (isMobileField(el.name)) {
-    el.value = digitsOnly(el.value, 10);
-  }
-});
-
-/* Default today's date */
-$("#applyDate").value = new Date().toISOString().slice(0, 10);
-
-/* =========================================================================
-   DYNAMIC TABLES: family / education / employment
-   ========================================================================= */
-function addRow(kind) {
-  const templates = {
-    family: () => {
-      const id = uid();
-      const tr = document.createElement("tr");
-      tr.className = "border-b border-surface-muted";
-      tr.dataset.id = id;
-      tr.innerHTML = `
-        <td class="py-1.5 pr-2 min-w-[220px]"><input name="fam_name_${id}" class="w-full"/></td>
-        <td class="py-1.5 pr-2"><select name="fam_gender_${id}"><option value="">-</option><option>Male</option><option>Female</option><option>Other</option></select></td>
-        <td class="py-1.5 pr-2"><input name="fam_rel_${id}" placeholder="e.g. Son, Sister"/></td>
-		<td class="py-1.5 pr-2"><input name="fam_dob_${id}" type="date"/></td>
-		<td class="py-1.5 pr-2 min-w-[90px]"><input name="fam_age_${id}" type="text" readonly class="bg-surface-muted" placeholder="Auto"/></td>
-        <td class="py-1.5 pr-2"><input name="fam_contact_${id}" type="tel" inputmode="numeric" maxlength="10" pattern="[0-9]{10}" title="Enter exactly 10 digits" placeholder="10-digit mobile"/></td>
-        <td class="py-1.5 pr-2"><input name="fam_aadhar_${id}" inputmode="numeric" maxlength="12" pattern="[0-9]{12}" title="Enter exactly 12 digits" placeholder="12-digit Aadhar"/></td>
-        <td class="py-1.5 pr-2"><input name="fam_occ_${id}" placeholder="Occupation"/></td>
-        <td class="py-1.5"><button type="button" class="icon-btn-remove" data-remove-row><span class="material-symbols-outlined !text-[18px]">close</span></button></td>`;
-      return tr;
-    },
-    edu: () => {
-      const id = uid();
-      const tr = document.createElement("tr");
-      tr.className = "border-b border-surface-muted";
-      tr.dataset.id = id;
-      tr.innerHTML = `
-        <td class="py-1.5 pr-2"><input name="edu_inst_${id}" placeholder="Institution / Board"/></td>
-        <td class="py-1.5 pr-2"><select name="edu_level_${id}"><option value="">Select</option><option>SSC</option><option>Intermediate</option><option>Diploma</option><option>Degree</option><option>PG</option><option>Other</option></select></td>
-        <td class="py-1.5 pr-2"><input name="edu_year_${id}" type="number" min="1970" max="2100" placeholder="Year"/></td>
-        <td class="py-1.5 pr-2"><input name="edu_group_${id}" placeholder="Group/Branch/Trade"/></td>
-        <td class="py-1.5 pr-2"><input name="edu_grade_${id}" placeholder="Class/Grade/%"/></td>
-        <td class="py-1.5"><button type="button" class="icon-btn-remove" data-remove-row><span class="material-symbols-outlined !text-[18px]">close</span></button></td>`;
-      return tr;
-    },
-    emp: () => {
-      const id = uid();
-      const tr = document.createElement("tr");
-      tr.className = "border-b border-surface-muted align-top";
-      tr.dataset.id = id;
-      tr.innerHTML = `
-        <td class="py-1.5 pr-2 min-w-[440px]"><textarea name="emp_company_${id}" rows="1" placeholder="Company name &amp; address"></textarea></td>
-        <td class="py-1.5 pr-2 min-w-[140px]"><input name="emp_join_${id}" type="date"/></td>
-        <td class="py-1.5 pr-2 min-w-[140px]"><input name="emp_leave_${id}" type="date"/></td>
-        <td class="py-1.5 pr-2 min-w-[150px]"><input name="emp_period_${id}" type="text" readonly class="bg-surface-muted" placeholder="Years, months"/></td>
-        <td class="py-1.5 pr-2 min-w-[190px]"><input name="emp_position_${id}" placeholder="Position"/></td>
-        <td class="py-1.5 pr-2 min-w-[190px]"><input name="emp_hodname_${id}" placeholder="Name of your HOD"/></td>
-        <td class="py-1.5 pr-2 min-w-[160px]"><input name="emp_hodcontact_${id}" type="tel" inputmode="numeric" maxlength="10" pattern="[0-9]{10}" title="Enter exactly 10 digits" placeholder="10-digit contact"/></td>
-        <td class="py-1.5 pr-2 min-w-[170px]"><input name="emp_startsal_${id}" type="number" placeholder="₹"/></td>
-        <td class="py-1.5 pr-2 min-w-[170px]"><input name="emp_endsal_${id}" type="number" placeholder="₹"/></td>
-        <td class="py-1.5 pr-2 min-w-[190px]"><input name="emp_reason_${id}" placeholder="Reason for leaving"/></td>
-        <td class="py-1.5"><button type="button" class="icon-btn-remove" data-remove-row><span class="material-symbols-outlined !text-[18px]">close</span></button></td>`;
-      return tr;
-    },
-  };
-  const bodyId = { family: "familyBody", edu: "eduBody", emp: "empBody" }[kind];
-  $("#" + bodyId).appendChild(templates[kind]());
-}
-$$("[data-add]").forEach(btn => btn.addEventListener("click", () => addRow(btn.dataset.add)));
-document.addEventListener("click", (e) => {
-  const rm = e.target.closest("[data-remove-row]");
-  if (rm) rm.closest("tr").remove();
-});
-
-/* ---------------------------- Employment: auto period worked ---------------------------- */
-// Computes "X years, Y months" between Date Joining and Date Leaving
-// (falls back to today if Date Leaving is left blank, i.e. still employed).
-function formatPeriod(months) {
-  if (months < 0) return "";
-  const years = Math.floor(months / 12);
-  const rem = months % 12;
-  const parts = [];
-  if (years) parts.push(years + (years === 1 ? " year" : " years"));
-  if (rem || !years) parts.push(rem + (rem === 1 ? " month" : " months"));
-  return parts.join(", ");
-}
-function calcEmploymentPeriod(tr) {
-  const id = tr.dataset.id;
-  const joinEl = tr.querySelector(`[name="emp_join_${id}"]`);
-  const leaveEl = tr.querySelector(`[name="emp_leave_${id}"]`);
-  const periodEl = tr.querySelector(`[name="emp_period_${id}"]`);
-  if (!joinEl || !periodEl) return;
-  const joinVal = joinEl.value;
-  if (!joinVal) { periodEl.value = ""; return; }
-  const start = new Date(joinVal);
-  const end = leaveEl && leaveEl.value ? new Date(leaveEl.value) : new Date();
-  if (isNaN(start) || isNaN(end) || end < start) { periodEl.value = ""; return; }
-  let months = (end.getFullYear() - start.getFullYear()) * 12 + (end.getMonth() - start.getMonth());
-  if (end.getDate() < start.getDate()) months -= 1;
-  periodEl.value = formatPeriod(months);
-}
-$("#empBody").addEventListener("change", (e) => {
-  if (e.target.name && (e.target.name.startsWith("emp_join_") || e.target.name.startsWith("emp_leave_"))) {
-    calcEmploymentPeriod(e.target.closest("tr"));
-  }
-});
-
-/* ---------------------------- Family: auto age from DOB ---------------------------- */
-function calcFamilyAge(tr) {
-  const id = tr.dataset.id;
-  const dobEl = tr.querySelector(`[name="fam_dob_${id}"]`);
-  const ageEl = tr.querySelector(`[name="fam_age_${id}"]`);
-  if (!dobEl || !ageEl) return;
-  if (!dobEl.value) { ageEl.value = ""; return; }
-  const dob = new Date(dobEl.value);
-  if (isNaN(dob)) { ageEl.value = ""; return; }
-  const diff = new Date(Date.now() - dob.getTime());
-  const age = Math.abs(diff.getUTCFullYear() - 1970);
-  ageEl.value = age >= 0 ? age : "";
-}
-$("#familyBody").addEventListener("change", (e) => {
-  if (e.target.name && e.target.name.startsWith("fam_dob_")) {
-    calcFamilyAge(e.target.closest("tr"));
-  }
-});
-
-// seed with a couple of starter rows
-addRow("family");
-addRow("edu"); addRow("edu");
-addRow("emp");
-
-/* =========================================================================
-   SALARY TABLE — auto per-annum + totals
-   ========================================================================= */
-const salaryComponents = ["Basic","HRA","CEA","WA","Conveyance","LTA","Medical Allowance","PF","ESI","Bonus","Others"];
-const salaryBody = $("#salaryBody");
-salaryComponents.forEach(name => {
-  const key = name.replace(/\s+/g, "");
-  const tr = document.createElement("tr");
-  tr.innerHTML = `
-    <td class="py-1.5 pr-2 text-sm">${name}</td>
-    <td class="py-1.5 pr-2"><input data-sal-month="${key}" type="number" min="0" placeholder="0"/></td>
-    <td class="py-1.5 pr-2"><input data-sal-annum="${key}" type="number" readonly class="bg-surface-muted" placeholder="0"/></td>`;
-  salaryBody.appendChild(tr);
-});
-function recalcSalary() {
-  let totalM = 0, totalA = 0;
-  salaryComponents.forEach(name => {
-    const key = name.replace(/\s+/g, "");
-    const m = parseFloat($(`[data-sal-month="${key}"]`).value) || 0;
-    const a = m * 12;
-    $(`[data-sal-annum="${key}"]`).value = a ? a.toFixed(0) : "";
-    totalM += m; totalA += a;
-  });
-  $("#salaryTotalMonth").value = totalM.toFixed(0);
-  $("#salaryTotalAnnum").value = totalA.toFixed(0);
-}
-salaryBody.addEventListener("input", recalcSalary);
-recalcSalary();
-const DRAFT_KEY = "saiswarna_job_app_draft_v1";
-function serializeForm() {
-  const data = {};
-  $$("#appForm input, #appForm select, #appForm textarea").forEach(el => {
-    if (!el.name) return;
-    if (el.type === "checkbox") data[el.name] = el.checked;
-    else if (el.type !== "file") data[el.name] = el.value;
-  });
-  return data;
-}
-function saveDraft(silent) {
-  try {
-    localStorage.setItem(DRAFT_KEY, JSON.stringify(serializeForm()));
-    if (!silent) toast("Draft saved on this device");
-  } catch (err) { console.warn("draft save failed", err); }
-}
-function loadDraft() {
-  try {
-    const raw = localStorage.getItem(DRAFT_KEY);
-    if (!raw) return;
-    const data = JSON.parse(raw);
-    Object.entries(data).forEach(([name, val]) => {
-      const el = $(`#appForm [name="${CSS.escape(name)}"]`);
-      if (!el) return;
-      if (el.type === "checkbox") el.checked = !!val;
-      else el.value = val;
+    const list = document.createElement('div');
+    list.className = 'choices';
+    q.options.forEach(opt => {
+      const b = document.createElement('button');
+      b.className = 'choice' + (prev === opt[2] ? ' sel' : '');
+      b.innerHTML = `<span class="radio"></span><span><span class="te">${opt[0]}</span><span class="hi">${opt[1]}</span><span class="en">${opt[2]}</span></span>`;
+      b.onclick = () => choose(b, opt[2]);   // English text saved to the sheet
+      list.appendChild(b);
     });
-    recalcSalary();
-  } catch (err) { console.warn("draft load failed", err); }
-}
-$("#draftBtn").addEventListener("click", () => saveDraft(false));
-window.addEventListener("beforeunload", () => saveDraft(true));
-loadDraft();
-const MAX_BYTES = 1024 * 1024; // 1 MB
-let photoDataUrl = null; // final compressed base64 (data URL)
-let photoMime = "image/jpeg";
-
-function fileToImage(file) {
-  return new Promise((resolve, reject) => {
-    const img = new Image();
-    const reader = new FileReader();
-    reader.onload = () => { img.onload = () => resolve(img); img.onerror = reject; img.src = reader.result; };
-    reader.onerror = reject;
-    reader.readAsDataURL(file);
-  });
-}
-async function compressImage(file) {
-  const img = await fileToImage(file);
-  let width = img.width, height = img.height;
-  const MAX_DIM = 1280;
-  if (width > MAX_DIM || height > MAX_DIM) {
-    const scale = MAX_DIM / Math.max(width, height);
-    width = Math.round(width * scale);
-    height = Math.round(height * scale);
+    area.appendChild(list);
   }
-  const canvas = document.createElement("canvas");
-  canvas.width = width; canvas.height = height;
-  const ctx = canvas.getContext("2d");
-  ctx.drawImage(img, 0, 0, width, height);
-
-  let quality = 0.9;
-  let dataUrl = canvas.toDataURL("image/jpeg", quality);
-  const sizeOf = (du) => Math.round((du.length - "data:image/jpeg;base64,".length) * 0.75);
-
-  let attempts = 0;
-  while (sizeOf(dataUrl) > MAX_BYTES && attempts < 8) {
-    quality -= 0.1;
-    if (quality < 0.35 && width > 480) {
-      width = Math.round(width * 0.85);
-      height = Math.round(height * 0.85);
-      canvas.width = width; canvas.height = height;
-      ctx.drawImage(img, 0, 0, width, height);
-      quality = 0.7;
-    }
-    dataUrl = canvas.toDataURL("image/jpeg", Math.max(quality, 0.3));
-    attempts++;
-  }
-  return { dataUrl, size: sizeOf(dataUrl), width, height };
-}
-async function handlePhotoFile(file) {
-  if (!file) return;
-  $("#photoStatus").textContent = "Compressing photo…";
-  try {
-    const { dataUrl, size } = await compressImage(file);
-    photoDataUrl = dataUrl;
-    $("#photoPreview").src = dataUrl;
-    $("#photoPreview").classList.remove("hidden");
-    $("#photoPlaceholderIcon").classList.add("hidden");
-    $("#photoClear").classList.remove("hidden");
-    $("#photoStatus").textContent = `Ready · ${(size / 1024).toFixed(0)} KB (under 1 MB)`;
-  } catch (err) {
-    console.error(err);
-    $("#photoStatus").textContent = "Could not process that photo — please try again.";
-    toast("Photo processing failed", "error");
-  }
-}
-$("#photoCapture").addEventListener("change", (e) => handlePhotoFile(e.target.files[0]));
-$("#photoUpload").addEventListener("change", (e) => handlePhotoFile(e.target.files[0]));
-$("#photoClear").addEventListener("click", () => {
-  photoDataUrl = null;
-  $("#photoPreview").classList.add("hidden");
-  $("#photoPlaceholderIcon").classList.remove("hidden");
-  $("#photoClear").classList.add("hidden");
-  $("#photoStatus").textContent = "";
-  $("#photoCapture").value = ""; $("#photoUpload").value = "";
-});
-
-/* ------------------------- Digital signature capture ------------------------- */
-const SIG_MAX_BYTES = 500 * 1024; // 500 KB hard cap
-let sigDataUrl = null; // final compressed base64 (data URL), <500KB
-const sigCanvas = $("#sigCanvas");
-const sigCtx = sigCanvas.getContext("2d");
-let sigDrawing = false;
-let sigHasStrokes = false;
-let sigLastX = 0, sigLastY = 0;
-
-function sizeOfDataUrl(du) {
-  const idx = du.indexOf(",");
-  return Math.round((du.length - idx - 1) * 0.75);
+  $('detailsSection').style.display = 'none';
+  $('signSection').style.display = 'none';
+  $('questionSection').style.display = '';
+  $('completionScreen').style.display = 'none';
 }
 
-// Compress an arbitrary canvas down to maxBytes by lowering JPEG quality,
-// then progressively downscaling if quality alone isn't enough.
-async function compressCanvasToDataUrl(sourceCanvas, maxBytes, startQuality = 0.92) {
-  let width = sourceCanvas.width, height = sourceCanvas.height;
-  let workCanvas = sourceCanvas;
-  let quality = startQuality;
-  let dataUrl = workCanvas.toDataURL("image/jpeg", quality);
-  let attempts = 0;
-  while (sizeOfDataUrl(dataUrl) > maxBytes && attempts < 10) {
-    quality -= 0.1;
-    if (quality < 0.35 && width > 280) {
-      width = Math.round(width * 0.85);
-      height = Math.round(height * 0.85);
-      const scaled = document.createElement("canvas");
-      scaled.width = width; scaled.height = height;
-      scaled.getContext("2d").drawImage(workCanvas, 0, 0, width, height);
-      workCanvas = scaled;
-      quality = 0.7;
-    }
-    dataUrl = workCanvas.toDataURL("image/jpeg", Math.max(quality, 0.3));
-    attempts++;
-  }
-  return { dataUrl, size: sizeOfDataUrl(dataUrl) };
+function choose(btn, value){
+  if (busy) return;
+  busy = true;
+  btn.parentElement.querySelectorAll('.sel').forEach(e => e.classList.remove('sel'));
+  btn.classList.add('sel');
+  answers[idx] = value;
+  setTimeout(() => {
+    idx++;
+    idx >= surveyData.length ? showSignature() : showQuestion(idx);
+  }, 450);
 }
 
-function sizeCanvasForPad() {
-  const rect = sigCanvas.getBoundingClientRect();
-  const ratio = window.devicePixelRatio || 1;
-  sigCanvas.width = Math.max(1, Math.round(rect.width * ratio));
-  sigCanvas.height = Math.max(1, Math.round(rect.height * ratio));
-  sigCtx.setTransform(ratio, 0, 0, ratio, 0, 0);
+function goBack(){
+  if (idx > 0) { idx--; showQuestion(idx); } else showDetails();
+}
+
+// ---------- signature ----------
+let sigCtx = null, drawing = false, signed = false, submitting = false;
+
+function showSignature(){
+  $('detailsSection').style.display = 'none';
+  $('questionSection').style.display = 'none';
+  $('completionScreen').style.display = 'none';
+  $('signSection').style.display = '';
+  $('signDate').textContent = new Date().toLocaleDateString('en-GB',{timeZone:'Asia/Kolkata'});
+  $('sigErr').style.display = 'none';
+  setupSig();
+}
+
+function setupSig(){
+  const c = $('sigPad'), r = c.getBoundingClientRect(), d = window.devicePixelRatio || 1;
+  c.width = Math.round(r.width * d);
+  c.height = Math.round(r.height * d);
+  sigCtx = c.getContext('2d');
+  sigCtx.setTransform(d, 0, 0, d, 0, 0);
   sigCtx.lineWidth = 2.4;
-  sigCtx.lineCap = "round";
-  sigCtx.lineJoin = "round";
-  sigCtx.strokeStyle = "#1a1d29";
-}
-sizeCanvasForPad();
-window.addEventListener("resize", () => { if (!sigHasStrokes) sizeCanvasForPad(); });
-
-function sigStatusReady(size) {
-  $("#sigStatus").textContent = `Ready · ${(size / 1024).toFixed(0)} KB (under 500 KB)`;
+  sigCtx.lineCap = sigCtx.lineJoin = 'round';
+  sigCtx.strokeStyle = '#0b2545';
+  signed = false;
+  $('sigHint').style.display = '';
 }
 
-function sigPointerPos(e) {
-  const rect = sigCanvas.getBoundingClientRect();
-  const point = e.touches && e.touches.length ? e.touches[0] : e;
-  return { x: point.clientX - rect.left, y: point.clientY - rect.top };
+function sigPos(e){
+  const r = $('sigPad').getBoundingClientRect();
+  return {x: e.clientX - r.left, y: e.clientY - r.top};
 }
-function sigStart(e) {
-  e.preventDefault();
-  sigDrawing = true;
-  const p = sigPointerPos(e);
-  sigLastX = p.x; sigLastY = p.y;
-  $("#sigPlaceholder").classList.add("hidden");
-}
-function sigMove(e) {
-  if (!sigDrawing) return;
-  e.preventDefault();
-  const p = sigPointerPos(e);
-  sigCtx.beginPath();
-  sigCtx.moveTo(sigLastX, sigLastY);
-  sigCtx.lineTo(p.x, p.y);
-  sigCtx.stroke();
-  sigLastX = p.x; sigLastY = p.y;
-  sigHasStrokes = true;
-}
-async function commitDrawnSignature() {
-  $("#sigStatus").textContent = "Compressing signature…";
-  try {
-    // Flatten onto a white background (canvas is transparent; JPEG needs opaque bg)
-    const flat = document.createElement("canvas");
-    flat.width = sigCanvas.width; flat.height = sigCanvas.height;
-    const fctx = flat.getContext("2d");
-    fctx.fillStyle = "#ffffff";
-    fctx.fillRect(0, 0, flat.width, flat.height);
-    fctx.drawImage(sigCanvas, 0, 0);
-    const { dataUrl, size } = await compressCanvasToDataUrl(flat, SIG_MAX_BYTES);
-    sigDataUrl = dataUrl;
-    sigStatusReady(size);
-    $("#sigRemove").classList.remove("hidden");
-  } catch (err) {
-    console.error(err);
-    $("#sigStatus").textContent = "Could not process signature — please try again.";
-    toast("Signature processing failed", "error");
-  }
-}
-async function sigEnd(e) {
-  if (!sigDrawing) return;
-  sigDrawing = false;
-  if (sigHasStrokes) await commitDrawnSignature();
-}
-sigCanvas.addEventListener("mousedown", sigStart);
-sigCanvas.addEventListener("mousemove", sigMove);
-window.addEventListener("mouseup", sigEnd);
-sigCanvas.addEventListener("touchstart", sigStart, { passive: false });
-sigCanvas.addEventListener("touchmove", sigMove, { passive: false });
-sigCanvas.addEventListener("touchend", sigEnd);
-sigCanvas.addEventListener("touchcancel", sigEnd);
 
-function resetSigPad() {
-  sigHasStrokes = false;
-  sizeCanvasForPad();
-  sigCtx.clearRect(0, 0, sigCanvas.width, sigCanvas.height);
-}
-$("#sigClearPad").addEventListener("click", () => {
-  sigDataUrl = null;
-  resetSigPad();
-  $("#sigPreview").classList.add("hidden");
-  $("#sigCanvas").classList.remove("hidden");
-  $("#sigPlaceholder").classList.remove("hidden");
-  $("#sigRemove").classList.add("hidden");
-  $("#sigStatus").textContent = "";
-  $("#sigCapture").value = ""; $("#sigUpload").value = "";
-});
-$("#sigRemove").addEventListener("click", () => {
-  sigDataUrl = null;
-  resetSigPad();
-  $("#sigPreview").classList.add("hidden");
-  $("#sigCanvas").classList.remove("hidden");
-  $("#sigPlaceholder").classList.remove("hidden");
-  $("#sigRemove").classList.add("hidden");
-  $("#sigStatus").textContent = "";
-  $("#sigCapture").value = ""; $("#sigUpload").value = "";
-});
-
-async function handleSignatureFile(file) {
-  if (!file) return;
-  $("#sigStatus").textContent = "Compressing signature…";
-  try {
-    const img = await fileToImage(file);
-    let width = img.width, height = img.height;
-    const MAX_DIM = 1000;
-    if (width > MAX_DIM || height > MAX_DIM) {
-      const scale = MAX_DIM / Math.max(width, height);
-      width = Math.round(width * scale);
-      height = Math.round(height * scale);
-    }
-    const canvas = document.createElement("canvas");
-    canvas.width = width; canvas.height = height;
-    const ctx = canvas.getContext("2d");
-    ctx.fillStyle = "#ffffff";
-    ctx.fillRect(0, 0, width, height);
-    ctx.drawImage(img, 0, 0, width, height);
-    const { dataUrl, size } = await compressCanvasToDataUrl(canvas, SIG_MAX_BYTES);
-    sigDataUrl = dataUrl;
-    $("#sigPreview").src = dataUrl;
-    $("#sigPreview").classList.remove("hidden");
-    $("#sigCanvas").classList.add("hidden");
-    $("#sigPlaceholder").classList.add("hidden");
-    $("#sigRemove").classList.remove("hidden");
-    sigStatusReady(size);
-  } catch (err) {
-    console.error(err);
-    $("#sigStatus").textContent = "Could not process that image — please try again.";
-    toast("Signature processing failed", "error");
-  }
-}
-$("#sigCapture").addEventListener("change", (e) => handleSignatureFile(e.target.files[0]));
-$("#sigUpload").addEventListener("change", (e) => handleSignatureFile(e.target.files[0]));
-function collectRows(prefixMap, bodyId) {
-  const rows = [];
-  $$(`#${bodyId} tr`).forEach(tr => {
-    const id = tr.dataset.id;
-    const row = {};
-    Object.entries(prefixMap).forEach(([field, prefix]) => {
-      const el = tr.querySelector(`[name="${prefix}${id}"]`);
-      row[field] = el ? el.value : "";
-    });
-    if (Object.values(row).some(v => v && v.toString().trim() !== "")) rows.push(row);
+function initSignature(){
+  const c = $('sigPad');
+  c.addEventListener('pointerdown', e => {
+    e.preventDefault();
+    c.setPointerCapture(e.pointerId);
+    drawing = true;
+    const p = sigPos(e);
+    sigCtx.beginPath();
+    sigCtx.moveTo(p.x, p.y);
+    sigCtx.lineTo(p.x + 0.01, p.y + 0.01);   // dot on a simple tap
+    sigCtx.stroke();
   });
-  return rows;
-}
-function buildPayload() {
-  const data = serializeForm();
-  data.family = collectRows({ name: "fam_name_", gender: "fam_gender_", age: "fam_age_", relationship: "fam_rel_", dob: "fam_dob_", contact: "fam_contact_", aadhar: "fam_aadhar_", occupation: "fam_occ_" }, "familyBody");
-  data.education = collectRows({ institution: "edu_inst_", level: "edu_level_", year: "edu_year_", group: "edu_group_", grade: "edu_grade_" }, "eduBody");
-  data.employment = collectRows({ company: "emp_company_", joining: "emp_join_", leaving: "emp_leave_", periodWorked: "emp_period_", position: "emp_position_", hodName: "emp_hodname_", hodContact: "emp_hodcontact_", startSalary: "emp_startsal_", endSalary: "emp_endsal_", reason: "emp_reason_" }, "empBody");
-  data.salary = {};
-  salaryComponents.forEach(name => {
-    const key = name.replace(/\s+/g, "");
-    data.salary[name] = {
-      perMonth: $(`[data-sal-month="${key}"]`).value || "0",
-      perAnnum: $(`[data-sal-annum="${key}"]`).value || "0",
-    };
+  c.addEventListener('pointermove', e => {
+    if (!drawing) return;
+    e.preventDefault();
+    const p = sigPos(e);
+    sigCtx.lineTo(p.x, p.y);
+    sigCtx.stroke();
+    signed = true;
+    $('sigHint').style.display = 'none';
+    $('sigErr').style.display = 'none';
   });
-  data.salaryTotalMonth = $("#salaryTotalMonth").value;
-  data.salaryTotalAnnum = $("#salaryTotalAnnum").value;
-  data.photoBase64 = photoDataUrl || "";
-  data.signatureBase64 = sigDataUrl || "";
-  data.submittedAt = new Date().toISOString();
-  return data;
+  ['pointerup','pointercancel','pointerleave'].forEach(t =>
+    c.addEventListener(t, () => { drawing = false; }));
 }
 
-function firstInvalidField() {
-  const required = $$("#appForm [required]");
-  return required.find(el => !el.checkValidity());
+function clearSig(){ setupSig(); }
+
+function signBack(){
+  idx = surveyData.length - 1;
+  showQuestion(idx);
 }
 
-/* At least one Family Member row must have Name, Gender and Relationship filled. */
-function hasValidFamilyRow() {
-  return $$("#familyBody tr").some(tr => {
-    const id = tr.dataset.id;
-    const name = (tr.querySelector(`[name="fam_name_${id}"]`)?.value || "").trim();
-    const gender = (tr.querySelector(`[name="fam_gender_${id}"]`)?.value || "").trim();
-    const rel = (tr.querySelector(`[name="fam_rel_${id}"]`)?.value || "").trim();
-    return name && gender && rel;
+function signatureData(){
+  const c = $('sigPad'), w = 500, h = Math.round(w * c.height / c.width);
+  const t = document.createElement('canvas');
+  t.width = w; t.height = h;
+  const g = t.getContext('2d');
+  g.fillStyle = '#fff';
+  g.fillRect(0, 0, w, h);
+  g.drawImage(c, 0, 0, w, h);
+  return t.toDataURL('image/png');
+}
+
+function submitForm(){
+  if (submitting) return;
+  if (!signed) { $('sigErr').style.display = 'block'; return; }
+  submitting = true;
+  $('submitBtn').disabled = true;
+  const payload = {
+    registration: details.registration, model: details.model,
+    contact: details.contact, location: details.location,
+    details: details,
+    answers: answers,
+    form: surveyData.map((q, i) => ({question: q.question[2], answer: answers[i]})),
+    confirmDate: $('signDate').textContent,
+    signature: signatureData()
+  };
+  submitToGoogleSheets(payload);
+  $('signSection').style.display = 'none';
+  $('completionScreen').style.display = '';
+  submitting = false;
+  $('submitBtn').disabled = false;
+}
+
+function submitToGoogleSheets(payload){
+  fetch(GOOGLE_SCRIPT_URL, {
+    method: 'POST',
+    mode: 'no-cors',
+    headers: {'Content-Type': 'text/plain;charset=utf-8'},
+    body: JSON.stringify(payload)
+  }).catch(() => {});
+}
+
+function restartSurvey(){
+  idx = 0; answers = []; details = {};
+  ['regNo','contact'].forEach(id => $(id).value = '');
+  $('model').selectedIndex = 0;
+  $('location').selectedIndex = 0;
+  showDetails();
+}
+
+// ---------- customer details ----------
+function showDetails(){
+  $('signSection').style.display = 'none';
+  $('questionSection').style.display = 'none';
+  $('completionScreen').style.display = 'none';
+  $('detailsSection').style.display = '';
+}
+
+function setBad(fieldId, bad){
+  $(fieldId).classList.toggle('bad', bad);
+  return !bad;
+}
+
+// Returns '' when valid, otherwise an error message
+function checkMobile(n){
+  if (!/^\d{10}$/.test(n)) return 'Enter a 10-digit mobile number';
+  if (!/^[6-9]/.test(n)) return 'Mobile number must start with 6, 7, 8 or 9';
+  if (/^(\d)\1{9}$/.test(n)) return 'Enter a valid mobile number';
+  if (/(\d)\1{5,}/.test(n)) return 'Enter a valid mobile number';                 // 6+ same digits in a row
+  const d = n.split('').map(Number);
+  const cnt = {}; d.forEach(x => cnt[x] = (cnt[x]||0) + 1);
+  if (Math.max(...Object.values(cnt)) >= 8) return 'Enter a valid mobile number';   // one digit dominates
+  if (new Set(d).size <= 2) return 'Enter a valid mobile number';                   // e.g. 9898989898
+  const diffs = d.slice(1).map((x,i) => x - d[i]);
+  let run = 1, best = 1;                                                            // 123456 / 987654 runs
+  for (let i = 1; i < diffs.length; i++) {
+    run = (diffs[i] === diffs[i-1] && Math.abs(diffs[i]) === 1) ? run + 1 : 1;
+    best = Math.max(best, run);
+  }
+  if (best >= 5) return 'Enter a valid mobile number';
+  if (/^(\d{2})\1{4}$/.test(n) || /^(\d{5})\1$/.test(n)) return 'Enter a valid mobile number'; // repeated blocks
+  return '';
+}
+
+function startSurvey(){
+  const reg = $('regNo').value.replace(/[\s-]/g,'').toUpperCase();
+  const model = $('model').value;
+  const contact = $('contact').value.trim();
+  const loc = $('location').value;
+
+  const okReg = setBad('f_reg', !/^[A-Z0-9]{6,12}$/.test(reg));
+  const okModel = setBad('f_model', !model);
+  const mobileMsg = checkMobile(contact);
+  $('contactErr').textContent = mobileMsg || '';
+  const okContact = setBad('f_contact', !!mobileMsg);
+  const okLoc = setBad('f_loc', !loc);
+  if (!(okReg && okModel && okContact && okLoc)) return;
+
+  details = {registration: reg, model: model, contact: contact, location: loc};
+  idx = 0;
+  showQuestion(0);
+}
+
+function initDetails(){
+  initSignature();
+  $('location').innerHTML = '<option value="">-- Select Location --</option>' +
+    LOCATIONS.map(l => `<option value="${l}">${l}</option>`).join('');
+  $('model').innerHTML = '<option value="">-- Select Model --</option>' +
+    MODELS.map(m => `<option value="${m}">${m}</option>`).join('');
+  $('contact').maxLength = 14;   // lets a pasted +91 number through before it is cleaned
+  $('contact').addEventListener('input', e => {
+    let v = e.target.value.replace(/\D/g,'');
+    if (v.length > 10 && v.startsWith('91')) v = v.slice(2);
+    if (v.length > 10 && v.startsWith('0')) v = v.slice(1);
+    e.target.value = v.slice(0,10);
   });
+  showDetails();
 }
 
-function resetFormAfterSubmit() {
-  // 1. Reset all plain inputs/selects/textareas to their default values
-  $("#appForm").reset();
-
-  // 2. Clear the dynamic table rows (family / education / employment) and re-seed starters
-  ["familyBody", "eduBody", "empBody"].forEach(id => { $("#" + id).innerHTML = ""; });
-  addRow("family");
-  addRow("edu"); addRow("edu");
-  addRow("emp");
-
-  // 3. Clear the computed/derived fields that .reset() doesn't touch
-  $("#age").value = "";
-  recalcSalary();
-
-  // 4. Clear the photo state
-  photoDataUrl = null;
-  $("#photoPreview").classList.add("hidden");
-  $("#photoPlaceholderIcon").classList.remove("hidden");
-  $("#photoClear").classList.add("hidden");
-  $("#photoStatus").textContent = "";
-  $("#photoCapture").value = ""; $("#photoUpload").value = "";
-
-  // 4b. Clear the signature state
-  sigDataUrl = null;
-  resetSigPad();
-  $("#sigPreview").classList.add("hidden");
-  $("#sigCanvas").classList.remove("hidden");
-  $("#sigPlaceholder").classList.remove("hidden");
-  $("#sigRemove").classList.add("hidden");
-  $("#sigStatus").textContent = "";
-  $("#sigCapture").value = ""; $("#sigUpload").value = "";
-
-  // 5. Reset the step-chip navigation & progress bar back to section 1
-  chips.forEach(c => c.classList.remove("active", "done"));
-  chips[0].classList.add("active");
-  $("#progressBar").style.width = "11%";
-
-  // 6. Re-enable the submit button for a fresh application
-  $("#submitBtn").disabled = false;
-  $("#submitBtn").classList.remove("opacity-60");
-
-  window.scrollTo({ top: 0, behavior: "smooth" });
-}
-
-$("#submitBtn").addEventListener("click", async () => {
-  const invalid = firstInvalidField();
-  if (invalid) {
-    invalid.scrollIntoView({ behavior: "smooth", block: "center" });
-    invalid.focus();
-    toast("Please fill the highlighted required field", "error");
-    return;
-  }
-  if (!hasValidFamilyRow()) {
-    $("#sec-family").scrollIntoView({ behavior: "smooth", block: "start" });
-    toast("Please add at least one Family Member (Name, Gender & Relationship)", "error");
-    return;
-  }
-  if (!photoDataUrl) {
-    $("#photoPreviewWrap").scrollIntoView({ behavior: "smooth", block: "center" });
-    toast("Please add your photo before submitting", "error");
-    return;
-  }
-  if (!sigDataUrl) {
-    $("#sigPadWrap").scrollIntoView({ behavior: "smooth", block: "center" });
-    toast("Please add your signature before submitting", "error");
-    return;
-  }
-  if (!APPS_SCRIPT_URL || APPS_SCRIPT_URL.includes("PASTE_YOUR")) {
-    toast("Backend not configured yet — see setup instructions (Apps Script URL missing)", "error");
-    return;
-  }
-
-  const payload = buildPayload();
-  $("#submitOverlay").classList.remove("hidden");
-  $("#submitOverlay").classList.add("flex");
-  $("#overlayText").textContent = "Uploading photo & saving your application…";
-
-  try {
-    const res = await fetch(APPS_SCRIPT_URL, {
-      method: "POST",
-      headers: { "Content-Type": "text/plain;charset=utf-8" }, // avoids CORS preflight to Apps Script
-      body: JSON.stringify(payload),
-    });
-    const result = await res.json().catch(() => ({ status: "ok" }));
-    if (result.status && result.status !== "ok") throw new Error(result.message || "Submission failed");
-
-    localStorage.removeItem(DRAFT_KEY);
-    $("#submitOverlay").classList.add("hidden");
-    $("#submitOverlay").classList.remove("flex");
-    toast("Application submitted successfully! We'll contact you soon.");
-    $("#statusHint").textContent = "✓ Submitted successfully.";
-    resetFormAfterSubmit();
-  } catch (err) {
-    console.error(err);
-    $("#submitOverlay").classList.add("hidden");
-    $("#submitOverlay").classList.remove("flex");
-    toast("Could not submit — check your internet connection and try again", "error");
-  }
-});
-
-/* =========================================================================
-   COPY / INSPECTION DETERRENTS
-   Note: this raises the bar for casual copying only. A browser must
-   download the full HTML/CSS/JS to render this page, so no client-side
-   technique can make source code fully inaccessible to a determined
-   visitor — these steps just discourage casual right-click / view-source
-   / DevTools use and are not a substitute for server-side protection of
-   anything genuinely sensitive (which this page does not contain, since
-   APPS_SCRIPT_URL is a public submit endpoint by design).
-   ========================================================================= */
-(function () {
-  // Block right-click context menu
-  document.addEventListener("contextmenu", (e) => e.preventDefault());
-
-  // Block text/image drag
-  document.addEventListener("dragstart", (e) => e.preventDefault());
-
-  // Block common "view source" / DevTools / save-page shortcuts
-  document.addEventListener("keydown", (e) => {
-    const k = e.key ? e.key.toUpperCase() : "";
-    const blocked =
-      k === "F12" ||
-      (e.ctrlKey && k === "U") ||                                   // view-source
-      (e.ctrlKey && k === "S") ||                                   // save page
-      (e.ctrlKey && e.shiftKey && (k === "I" || k === "J" || k === "C")) || // DevTools panels
-      (e.metaKey && e.altKey && (k === "I" || k === "J" || k === "C"));    // macOS DevTools
-    if (blocked) { e.preventDefault(); e.stopPropagation(); }
-  });
-
-  // Best-effort DevTools-open detection (window size delta heuristic).
-  // Works for a docked DevTools panel; does not catch every configuration.
-  const guard = document.getElementById("devtoolsGuard");
-  const THRESHOLD = 160;
-  function checkDevtools() {
-    const widthDelta = window.outerWidth - window.innerWidth;
-    const heightDelta = window.outerHeight - window.innerHeight;
-    const open = widthDelta > THRESHOLD || heightDelta > THRESHOLD;
-    if (guard) guard.classList.toggle("show", open);
-  }
-  setInterval(checkDevtools, 800);
-  window.addEventListener("resize", checkDevtools);
-
-  // Quiet the console for casual snooping (does not stop the Sources/Network panel)
-  console.log("%cStop", "color:#c02b2b;font-size:34px;font-weight:bold;");
-  console.log("%cThis is a browser feature intended for developers. Copying or modifying this form's code without authorization is not permitted.", "font-size:14px;");
-})();
+document.addEventListener('DOMContentLoaded', initDetails);
 </script>
 </body>
 </html>
